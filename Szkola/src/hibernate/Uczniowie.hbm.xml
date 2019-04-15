@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-03-31 21:14:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.Uczniowie" table="uczniowie" catalog="szkola" optimistic-lock="version">
+        <id name="idUcznia" type="int">
+            <column name="id_ucznia" />
+            <generator class="assigned" />
+        </id>
+        <property name="imie" type="string">
+            <column name="imie" length="30" not-null="true" />
+        </property>
+        <property name="nazwisko" type="string">
+            <column name="nazwisko" length="30" not-null="true" />
+        </property>
+        <property name="pesel" type="string">
+            <column name="PESEL" length="11" not-null="true" />
+        </property>
+        <property name="nrLegitymacji" type="float">
+            <column name="nr_legitymacji" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="dataUrodzenia" type="date">
+            <column name="data_urodzenia" length="10" not-null="true" />
+        </property>
+        <property name="miasto" type="string">
+            <column name="miasto" length="30" not-null="true" />
+        </property>
+        <property name="ulica" type="string">
+            <column name="ulica" length="30" not-null="true" />
+        </property>
+        <property name="kodPocztowy" type="string">
+            <column name="kod_pocztowy" length="30" not-null="true" />
+        </property>
+        <property name="nrTelefonuDoRodzica" type="string">
+            <column name="nr_telefonu_do_rodzica" length="9" />
+        </property>
+        <property name="login" type="string">
+            <column name="login" length="30" not-null="true" />
+        </property>
+        <property name="haslo" type="string">
+            <column name="haslo" length="30" not-null="true" />
+        </property>
+        <set name="klasaUczniowies" table="klasa_uczniowie" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_ucznia" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.KlasaUczniowie" />
+        </set>
+        <set name="uwagis" table="uwagi" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_ucznia" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Uwagi" />
+        </set>
+        <set name="ocenies" table="oceny" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_ucznia" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Oceny" />
+        </set>
+    </class>
+</hibernate-mapping>

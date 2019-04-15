@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-03-31 21:14:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.Klasa" table="klasa" catalog="szkola" optimistic-lock="version">
+        <id name="idKlasy" type="int">
+            <column name="id_klasy" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="nauczyciele" class="hibernate.Nauczyciele" fetch="select">
+            <column name="id_nauczyciela" not-null="true" />
+        </many-to-one>
+        <property name="oddzial" type="string">
+            <column name="oddzial" length="30" not-null="true" />
+        </property>
+        <property name="rocznik" type="string">
+            <column name="rocznik" length="30" not-null="true" />
+        </property>
+        <set name="klasaUczniowies" table="klasa_uczniowie" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_klasy" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.KlasaUczniowie" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-03-31 21:14:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.Przedmioty" table="przedmioty" catalog="szkola" optimistic-lock="version">
+        <id name="idPrzedmioty" type="int">
+            <column name="id_przedmioty" />
+            <generator class="assigned" />
+        </id>
+        <property name="nazwaPrzedmiotu" type="string">
+            <column name="nazwa_przedmiotu" length="30" not-null="true" />
+        </property>
+        <set name="ocenies" table="oceny" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_przedmioty" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Oceny" />
+        </set>
+    </class>
+</hibernate-mapping>

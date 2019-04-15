@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-03-31 21:14:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.Oceny" table="oceny" catalog="szkola" optimistic-lock="version">
+        <id name="idOceny" type="int">
+            <column name="id_oceny" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="nauczyciele" class="hibernate.Nauczyciele" fetch="select">
+            <column name="id_nauczyciela" not-null="true" />
+        </many-to-one>
+        <many-to-one name="przedmioty" class="hibernate.Przedmioty" fetch="select">
+            <column name="id_przedmioty" not-null="true" />
+        </many-to-one>
+        <many-to-one name="uczniowie" class="hibernate.Uczniowie" fetch="select">
+            <column name="id_ucznia" not-null="true" />
+        </many-to-one>
+        <property name="opis" type="string">
+            <column name="opis" length="100" not-null="true" />
+        </property>
+        <property name="dataWpisania" type="date">
+            <column name="data_wpisania" length="10" not-null="true" />
+        </property>
+        <property name="wartosc" type="int">
+            <column name="wartosc" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
