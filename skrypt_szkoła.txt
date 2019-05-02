@@ -43,7 +43,6 @@ CREATE TABLE PRZEDMIOTY
 
 CREATE TABLE UCZNIOWIE_PRZEDMIOTY
 (
-  liczba_przedmiotow INT NOT NULL,
   id_przedmioty INT NOT NULL,
   id_ucznia INT NOT NULL,
   FOREIGN KEY (id_przedmioty) REFERENCES PRZEDMIOTY(id_przedmioty),
