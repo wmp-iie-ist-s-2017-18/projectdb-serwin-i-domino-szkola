@@ -78,6 +78,17 @@ CREATE TABLE UWAGI
   FOREIGN KEY (id_ucznia) REFERENCES UCZNIOWIE(id_ucznia)
 );
 
+CREATE TABLE OBECNOSC
+(
+  id_obecnosc INT NOT NULL,
+  typ_obecnosci BOOLEAN NOT NULL,
+  id_nauczyciela INT NOT NULL,
+  id_ucznia INT NOT NULL,
+  PRIMARY KEY (id_obecnosc),
+  FOREIGN KEY (id_nauczyciela) REFERENCES NAUCZYCIELE(id_nauczyciela),
+  FOREIGN KEY (id_ucznia) REFERENCES UCZNIOWIE(id_ucznia)
+);
+
 CREATE TABLE KLASA_UCZNIOWIE
 (
   id_klasy INT NOT NULL,
