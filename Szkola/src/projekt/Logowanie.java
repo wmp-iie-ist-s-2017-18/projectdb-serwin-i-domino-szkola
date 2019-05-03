@@ -141,9 +141,9 @@ public class Logowanie extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Haslo;
     private javax.swing.JTextField ID;
     private javax.swing.JButton Zaloguj;
+    private javax.swing.JPasswordField haslo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
