@@ -3,9 +3,10 @@ CREATE TABLE NAUCZYCIELE
   id_nauczyciela INT NOT NULL,
   imie VARCHAR(30) NOT NULL,
   nazwisko VARCHAR(30) NOT NULL,
-  email INT,
+  email VARCHAR(30),
   nr_telefonu VARCHAR(30),
   stawka VARCHAR(6) NOT NULL,
+  haslo VARCHAR(30) NOT NULL,
   PRIMARY KEY (id_nauczyciela)
 );
 
@@ -31,6 +32,7 @@ CREATE TABLE UCZNIOWIE
   ulica VARCHAR(30) NOT NULL,
   kod_pocztowy VARCHAR(30) NOT NULL,
   nr_telefonu_do_rodzica VARCHAR(9),
+  haslo VARCHAR(30) NOT NULL,
   PRIMARY KEY (id_ucznia)
 );
 
