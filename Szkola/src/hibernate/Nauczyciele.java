@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-05-03 22:53:30 by Hibernate Tools 4.3.1
+// Generated 2019-05-05 21:53:12 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,7 +14,7 @@ public class Nauczyciele  implements java.io.Serializable {
      private int idNauczyciela;
      private String imie;
      private String nazwisko;
-     private Integer email;
+     private String email;
      private String nrTelefonu;
      private String stawka;
      private String haslo;
@@ -28,14 +28,16 @@ public class Nauczyciele  implements java.io.Serializable {
     }
 
 	
-    public Nauczyciele(int idNauczyciela, String imie, String nazwisko, String stawka, String haslo) {
+    public Nauczyciele(int idNauczyciela, String imie, String nazwisko, String email, String nrTelefonu, String stawka, String haslo) {
         this.idNauczyciela = idNauczyciela;
         this.imie = imie;
         this.nazwisko = nazwisko;
+        this.email = email;
+        this.nrTelefonu = nrTelefonu;
         this.stawka = stawka;
         this.haslo = haslo;
     }
-    public Nauczyciele(int idNauczyciela, String imie, String nazwisko, Integer email, String nrTelefonu, String stawka, String haslo, Set klasas, Set obecnoscs, Set nauczycielePrzedmioties, Set uwagis, Set ocenies) {
+    public Nauczyciele(int idNauczyciela, String imie, String nazwisko, String email, String nrTelefonu, String stawka, String haslo, Set klasas, Set obecnoscs, Set nauczycielePrzedmioties, Set uwagis, Set ocenies) {
        this.idNauczyciela = idNauczyciela;
        this.imie = imie;
        this.nazwisko = nazwisko;
@@ -71,11 +73,11 @@ public class Nauczyciele  implements java.io.Serializable {
     public void setNazwisko(String nazwisko) {
         this.nazwisko = nazwisko;
     }
-    public Integer getEmail() {
+    public String getEmail() {
         return this.email;
     }
     
-    public void setEmail(Integer email) {
+    public void setEmail(String email) {
         this.email = email;
     }
     public String getNrTelefonu() {

@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-05-03 22:53:30 by Hibernate Tools 4.3.1
+// Generated 2019-05-05 21:53:12 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -16,7 +16,7 @@ public class Uczniowie  implements java.io.Serializable {
      private String imie;
      private String nazwisko;
      private String pesel;
-     private float nrLegitymacji;
+     private String nrLegitymacji;
      private Date dataUrodzenia;
      private String miasto;
      private String ulica;
@@ -33,7 +33,7 @@ public class Uczniowie  implements java.io.Serializable {
     }
 
 	
-    public Uczniowie(int idUcznia, String imie, String nazwisko, String pesel, float nrLegitymacji, Date dataUrodzenia, String miasto, String ulica, String kodPocztowy, String haslo) {
+    public Uczniowie(int idUcznia, String imie, String nazwisko, String pesel, String nrLegitymacji, Date dataUrodzenia, String miasto, String ulica, String kodPocztowy, String nrTelefonuDoRodzica, String haslo) {
         this.idUcznia = idUcznia;
         this.imie = imie;
         this.nazwisko = nazwisko;
@@ -43,9 +43,10 @@ public class Uczniowie  implements java.io.Serializable {
         this.miasto = miasto;
         this.ulica = ulica;
         this.kodPocztowy = kodPocztowy;
+        this.nrTelefonuDoRodzica = nrTelefonuDoRodzica;
         this.haslo = haslo;
     }
-    public Uczniowie(int idUcznia, String imie, String nazwisko, String pesel, float nrLegitymacji, Date dataUrodzenia, String miasto, String ulica, String kodPocztowy, String nrTelefonuDoRodzica, String haslo, Set obecnoscs, Set klasaUczniowies, Set uwagis, Set uczniowiePrzedmioties, Set ocenies) {
+    public Uczniowie(int idUcznia, String imie, String nazwisko, String pesel, String nrLegitymacji, Date dataUrodzenia, String miasto, String ulica, String kodPocztowy, String nrTelefonuDoRodzica, String haslo, Set obecnoscs, Set klasaUczniowies, Set uwagis, Set uczniowiePrzedmioties, Set ocenies) {
        this.idUcznia = idUcznia;
        this.imie = imie;
        this.nazwisko = nazwisko;
@@ -92,11 +93,11 @@ public class Uczniowie  implements java.io.Serializable {
     public void setPesel(String pesel) {
         this.pesel = pesel;
     }
-    public float getNrLegitymacji() {
+    public String getNrLegitymacji() {
         return this.nrLegitymacji;
     }
     
-    public void setNrLegitymacji(float nrLegitymacji) {
+    public void setNrLegitymacji(String nrLegitymacji) {
         this.nrLegitymacji = nrLegitymacji;
     }
     public Date getDataUrodzenia() {

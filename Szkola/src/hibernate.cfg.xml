@@ -7,15 +7,15 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/szkola</property>
     <property name="hibernate.connection.username">szkola</property>
     <property name="hibernate.connection.password">test</property>
-    <mapping resource="hibernate/Obecnosc.hbm.xml"/>
-    <mapping resource="hibernate/Uwagi.hbm.xml"/>
-    <mapping resource="hibernate/Klasa.hbm.xml"/>
-    <mapping resource="hibernate/Nauczyciele.hbm.xml"/>
-    <mapping resource="hibernate/KlasaUczniowie.hbm.xml"/>
-    <mapping resource="hibernate/NauczycielePrzedmioty.hbm.xml"/>
-    <mapping resource="hibernate/Uczniowie.hbm.xml"/>
-    <mapping resource="hibernate/Przedmioty.hbm.xml"/>
-    <mapping resource="hibernate/Oceny.hbm.xml"/>
     <mapping resource="hibernate/UczniowiePrzedmioty.hbm.xml"/>
+    <mapping resource="hibernate/KlasaUczniowie.hbm.xml"/>
+    <mapping resource="hibernate/Klasa.hbm.xml"/>
+    <mapping resource="hibernate/NauczycielePrzedmioty.hbm.xml"/>
+    <mapping resource="hibernate/Uwagi.hbm.xml"/>
+    <mapping resource="hibernate/Przedmioty.hbm.xml"/>
+    <mapping resource="hibernate/Uczniowie.hbm.xml"/>
+    <mapping resource="hibernate/Nauczyciele.hbm.xml"/>
+    <mapping resource="hibernate/Oceny.hbm.xml"/>
+    <mapping resource="hibernate/Obecnosc.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
