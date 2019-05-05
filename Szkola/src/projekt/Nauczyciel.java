@@ -321,11 +321,9 @@ public class Nauczyciel extends javax.swing.JFrame {
             .addGroup(UwagiLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UwagiLayout.createSequentialGroup()
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dodajUwage)
-                            .addComponent(jLabel4)
-                            .addComponent(trescUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(dodajUwage)
+                    .addComponent(jLabel4)
+                    .addComponent(trescUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(UwagiLayout.createSequentialGroup()
                         .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -687,17 +685,17 @@ public class Nauczyciel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usunOceneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunOceneActionPerformed
+    private void zaktualizujInfoUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaktualizujInfoUActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_usunOceneActionPerformed
+    }//GEN-LAST:event_zaktualizujInfoUActionPerformed
 
     private void dodajUczniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajUczniaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dodajUczniaActionPerformed
 
-    private void zaktualizujInfoUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaktualizujInfoUActionPerformed
+    private void usunOceneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunOceneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_zaktualizujInfoUActionPerformed
+    }//GEN-LAST:event_usunOceneActionPerformed
 
 
 
