@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-03-31 21:14:21 by Hibernate Tools 4.3.1
+// Generated 2019-05-03 22:53:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,6 +13,8 @@ public class Przedmioty  implements java.io.Serializable {
 
      private int idPrzedmioty;
      private String nazwaPrzedmiotu;
+     private Set uczniowiePrzedmioties = new HashSet(0);
+     private Set nauczycielePrzedmioties = new HashSet(0);
      private Set ocenies = new HashSet(0);
 
     public Przedmioty() {
@@ -23,9 +25,11 @@ public class Przedmioty  implements java.io.Serializable {
         this.idPrzedmioty = idPrzedmioty;
         this.nazwaPrzedmiotu = nazwaPrzedmiotu;
     }
-    public Przedmioty(int idPrzedmioty, String nazwaPrzedmiotu, Set ocenies) {
+    public Przedmioty(int idPrzedmioty, String nazwaPrzedmiotu, Set uczniowiePrzedmioties, Set nauczycielePrzedmioties, Set ocenies) {
        this.idPrzedmioty = idPrzedmioty;
        this.nazwaPrzedmiotu = nazwaPrzedmiotu;
+       this.uczniowiePrzedmioties = uczniowiePrzedmioties;
+       this.nauczycielePrzedmioties = nauczycielePrzedmioties;
        this.ocenies = ocenies;
     }
    
@@ -42,6 +46,20 @@ public class Przedmioty  implements java.io.Serializable {
     
     public void setNazwaPrzedmiotu(String nazwaPrzedmiotu) {
         this.nazwaPrzedmiotu = nazwaPrzedmiotu;
+    }
+    public Set getUczniowiePrzedmioties() {
+        return this.uczniowiePrzedmioties;
+    }
+    
+    public void setUczniowiePrzedmioties(Set uczniowiePrzedmioties) {
+        this.uczniowiePrzedmioties = uczniowiePrzedmioties;
+    }
+    public Set getNauczycielePrzedmioties() {
+        return this.nauczycielePrzedmioties;
+    }
+    
+    public void setNauczycielePrzedmioties(Set nauczycielePrzedmioties) {
+        this.nauczycielePrzedmioties = nauczycielePrzedmioties;
     }
     public Set getOcenies() {
         return this.ocenies;

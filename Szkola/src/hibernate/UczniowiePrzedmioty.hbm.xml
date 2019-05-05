@@ -3,17 +3,17 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 2019-05-03 22:53:32 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="hibernate.KlasaUczniowie" table="klasa_uczniowie" catalog="szkola" optimistic-lock="version">
-        <composite-id name="id" class="hibernate.KlasaUczniowieId">
-            <key-property name="idKlasy" type="int">
-                <column name="id_klasy" />
+    <class name="hibernate.UczniowiePrzedmioty" table="uczniowie_przedmioty" catalog="szkola" optimistic-lock="version">
+        <composite-id name="id" class="hibernate.UczniowiePrzedmiotyId">
+            <key-property name="idPrzedmioty" type="int">
+                <column name="id_przedmioty" />
             </key-property>
             <key-property name="idUcznia" type="int">
                 <column name="id_ucznia" />
             </key-property>
         </composite-id>
-        <many-to-one name="klasa" class="hibernate.Klasa" update="false" insert="false" fetch="select">
-            <column name="id_klasy" not-null="true" />
+        <many-to-one name="przedmioty" class="hibernate.Przedmioty" update="false" insert="false" fetch="select">
+            <column name="id_przedmioty" not-null="true" />
         </many-to-one>
         <many-to-one name="uczniowie" class="hibernate.Uczniowie" update="false" insert="false" fetch="select">
             <column name="id_ucznia" not-null="true" />

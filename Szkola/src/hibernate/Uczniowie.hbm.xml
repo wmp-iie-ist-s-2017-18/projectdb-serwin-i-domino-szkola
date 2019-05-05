@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 2019-03-31 21:14:22 by Hibernate Tools 4.3.1 -->
+<!-- Generated 2019-05-03 22:53:32 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="hibernate.Uczniowie" table="uczniowie" catalog="szkola" optimistic-lock="version">
         <id name="idUcznia" type="int">
@@ -35,12 +35,15 @@
         <property name="nrTelefonuDoRodzica" type="string">
             <column name="nr_telefonu_do_rodzica" length="9" />
         </property>
-        <property name="login" type="string">
-            <column name="login" length="30" not-null="true" />
-        </property>
         <property name="haslo" type="string">
             <column name="haslo" length="30" not-null="true" />
         </property>
+        <set name="obecnoscs" table="obecnosc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_ucznia" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Obecnosc" />
+        </set>
         <set name="klasaUczniowies" table="klasa_uczniowie" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_ucznia" not-null="true" />
@@ -52,6 +55,12 @@
                 <column name="id_ucznia" not-null="true" />
             </key>
             <one-to-many class="hibernate.Uwagi" />
+        </set>
+        <set name="uczniowiePrzedmioties" table="uczniowie_przedmioty" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_ucznia" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.UczniowiePrzedmioty" />
         </set>
         <set name="ocenies" table="oceny" inverse="true" lazy="true" fetch="select">
             <key>

@@ -3,9 +3,9 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 2019-05-03 22:53:32 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="hibernate.Uwagi" table="uwagi" catalog="szkola" optimistic-lock="version">
-        <id name="idUwagi" type="int">
-            <column name="id_uwagi" />
+    <class name="hibernate.Obecnosc" table="obecnosc" catalog="szkola" optimistic-lock="version">
+        <id name="idObecnosc" type="int">
+            <column name="id_obecnosc" />
             <generator class="assigned" />
         </id>
         <many-to-one name="nauczyciele" class="hibernate.Nauczyciele" fetch="select">
@@ -14,14 +14,8 @@
         <many-to-one name="uczniowie" class="hibernate.Uczniowie" fetch="select">
             <column name="id_ucznia" not-null="true" />
         </many-to-one>
-        <property name="opis" type="string">
-            <column name="opis" length="100" not-null="true" />
-        </property>
-        <property name="dataWpisania" type="date">
-            <column name="data_wpisania" length="10" not-null="true" />
-        </property>
-        <property name="typUwagi" type="boolean">
-            <column name="typ_uwagi" not-null="true" />
+        <property name="typObecnosci" type="boolean">
+            <column name="typ_obecnosci" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

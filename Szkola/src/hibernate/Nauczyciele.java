@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-03-31 21:14:21 by Hibernate Tools 4.3.1
+// Generated 2019-05-03 22:53:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,9 +17,10 @@ public class Nauczyciele  implements java.io.Serializable {
      private Integer email;
      private String nrTelefonu;
      private String stawka;
-     private String login;
      private String haslo;
      private Set klasas = new HashSet(0);
+     private Set obecnoscs = new HashSet(0);
+     private Set nauczycielePrzedmioties = new HashSet(0);
      private Set uwagis = new HashSet(0);
      private Set ocenies = new HashSet(0);
 
@@ -27,24 +28,24 @@ public class Nauczyciele  implements java.io.Serializable {
     }
 
 	
-    public Nauczyciele(int idNauczyciela, String imie, String nazwisko, String stawka, String login, String haslo) {
+    public Nauczyciele(int idNauczyciela, String imie, String nazwisko, String stawka, String haslo) {
         this.idNauczyciela = idNauczyciela;
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.stawka = stawka;
-        this.login = login;
         this.haslo = haslo;
     }
-    public Nauczyciele(int idNauczyciela, String imie, String nazwisko, Integer email, String nrTelefonu, String stawka, String login, String haslo, Set klasas, Set uwagis, Set ocenies) {
+    public Nauczyciele(int idNauczyciela, String imie, String nazwisko, Integer email, String nrTelefonu, String stawka, String haslo, Set klasas, Set obecnoscs, Set nauczycielePrzedmioties, Set uwagis, Set ocenies) {
        this.idNauczyciela = idNauczyciela;
        this.imie = imie;
        this.nazwisko = nazwisko;
        this.email = email;
        this.nrTelefonu = nrTelefonu;
        this.stawka = stawka;
-       this.login = login;
        this.haslo = haslo;
        this.klasas = klasas;
+       this.obecnoscs = obecnoscs;
+       this.nauczycielePrzedmioties = nauczycielePrzedmioties;
        this.uwagis = uwagis;
        this.ocenies = ocenies;
     }
@@ -91,13 +92,6 @@ public class Nauczyciele  implements java.io.Serializable {
     public void setStawka(String stawka) {
         this.stawka = stawka;
     }
-    public String getLogin() {
-        return this.login;
-    }
-    
-    public void setLogin(String login) {
-        this.login = login;
-    }
     public String getHaslo() {
         return this.haslo;
     }
@@ -111,6 +105,20 @@ public class Nauczyciele  implements java.io.Serializable {
     
     public void setKlasas(Set klasas) {
         this.klasas = klasas;
+    }
+    public Set getObecnoscs() {
+        return this.obecnoscs;
+    }
+    
+    public void setObecnoscs(Set obecnoscs) {
+        this.obecnoscs = obecnoscs;
+    }
+    public Set getNauczycielePrzedmioties() {
+        return this.nauczycielePrzedmioties;
+    }
+    
+    public void setNauczycielePrzedmioties(Set nauczycielePrzedmioties) {
+        this.nauczycielePrzedmioties = nauczycielePrzedmioties;
     }
     public Set getUwagis() {
         return this.uwagis;

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-05-03 22:53:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.NauczycielePrzedmioty" table="nauczyciele_przedmioty" catalog="szkola" optimistic-lock="version">
+        <composite-id name="id" class="hibernate.NauczycielePrzedmiotyId">
+            <key-property name="idNauczyciela" type="int">
+                <column name="id_nauczyciela" />
+            </key-property>
+            <key-property name="idPrzedmioty" type="int">
+                <column name="id_przedmioty" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="nauczyciele" class="hibernate.Nauczyciele" update="false" insert="false" fetch="select">
+            <column name="id_nauczyciela" not-null="true" />
+        </many-to-one>
+        <many-to-one name="przedmioty" class="hibernate.Przedmioty" update="false" insert="false" fetch="select">
+            <column name="id_przedmioty" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

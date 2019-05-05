@@ -17,6 +17,7 @@ public class Logowanie extends javax.swing.JFrame {
     public Logowanie() {
         setTitle("Logowanie");
         initComponents();
+        
     }
 
     /**
@@ -31,11 +32,11 @@ public class Logowanie extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Haslo = new javax.swing.JTextField();
         wybNauczyciel = new javax.swing.JCheckBox();
         wybUczen = new javax.swing.JCheckBox();
         ID = new javax.swing.JTextField();
         Zaloguj = new javax.swing.JButton();
+        haslo = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,8 +63,8 @@ public class Logowanie extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Haslo)
-                            .addComponent(ID, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
+                            .addComponent(ID, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(haslo)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(wybNauczyciel)
                         .addGap(29, 29, 29)
@@ -82,7 +83,7 @@ public class Logowanie extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(Haslo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(haslo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(wybNauczyciel)

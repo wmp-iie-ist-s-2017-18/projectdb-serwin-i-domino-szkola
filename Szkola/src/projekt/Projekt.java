@@ -15,8 +15,9 @@ public class Projekt {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Logowannie logIn = new Logowannie();
-        logIn.setVisible(true);
+        
+        Logowanie loginIn = new Logowanie();
+        loginIn.setVisible(true);
     }
     
 }

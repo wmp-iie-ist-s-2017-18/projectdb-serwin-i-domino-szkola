@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-03-31 21:14:21 by Hibernate Tools 4.3.1
+// Generated 2019-05-03 22:53:30 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -22,17 +22,18 @@ public class Uczniowie  implements java.io.Serializable {
      private String ulica;
      private String kodPocztowy;
      private String nrTelefonuDoRodzica;
-     private String login;
      private String haslo;
+     private Set obecnoscs = new HashSet(0);
      private Set klasaUczniowies = new HashSet(0);
      private Set uwagis = new HashSet(0);
+     private Set uczniowiePrzedmioties = new HashSet(0);
      private Set ocenies = new HashSet(0);
 
     public Uczniowie() {
     }
 
 	
-    public Uczniowie(int idUcznia, String imie, String nazwisko, String pesel, float nrLegitymacji, Date dataUrodzenia, String miasto, String ulica, String kodPocztowy, String login, String haslo) {
+    public Uczniowie(int idUcznia, String imie, String nazwisko, String pesel, float nrLegitymacji, Date dataUrodzenia, String miasto, String ulica, String kodPocztowy, String haslo) {
         this.idUcznia = idUcznia;
         this.imie = imie;
         this.nazwisko = nazwisko;
@@ -42,10 +43,9 @@ public class Uczniowie  implements java.io.Serializable {
         this.miasto = miasto;
         this.ulica = ulica;
         this.kodPocztowy = kodPocztowy;
-        this.login = login;
         this.haslo = haslo;
     }
-    public Uczniowie(int idUcznia, String imie, String nazwisko, String pesel, float nrLegitymacji, Date dataUrodzenia, String miasto, String ulica, String kodPocztowy, String nrTelefonuDoRodzica, String login, String haslo, Set klasaUczniowies, Set uwagis, Set ocenies) {
+    public Uczniowie(int idUcznia, String imie, String nazwisko, String pesel, float nrLegitymacji, Date dataUrodzenia, String miasto, String ulica, String kodPocztowy, String nrTelefonuDoRodzica, String haslo, Set obecnoscs, Set klasaUczniowies, Set uwagis, Set uczniowiePrzedmioties, Set ocenies) {
        this.idUcznia = idUcznia;
        this.imie = imie;
        this.nazwisko = nazwisko;
@@ -56,10 +56,11 @@ public class Uczniowie  implements java.io.Serializable {
        this.ulica = ulica;
        this.kodPocztowy = kodPocztowy;
        this.nrTelefonuDoRodzica = nrTelefonuDoRodzica;
-       this.login = login;
        this.haslo = haslo;
+       this.obecnoscs = obecnoscs;
        this.klasaUczniowies = klasaUczniowies;
        this.uwagis = uwagis;
+       this.uczniowiePrzedmioties = uczniowiePrzedmioties;
        this.ocenies = ocenies;
     }
    
@@ -133,19 +134,19 @@ public class Uczniowie  implements java.io.Serializable {
     public void setNrTelefonuDoRodzica(String nrTelefonuDoRodzica) {
         this.nrTelefonuDoRodzica = nrTelefonuDoRodzica;
     }
-    public String getLogin() {
-        return this.login;
-    }
-    
-    public void setLogin(String login) {
-        this.login = login;
-    }
     public String getHaslo() {
         return this.haslo;
     }
     
     public void setHaslo(String haslo) {
         this.haslo = haslo;
+    }
+    public Set getObecnoscs() {
+        return this.obecnoscs;
+    }
+    
+    public void setObecnoscs(Set obecnoscs) {
+        this.obecnoscs = obecnoscs;
     }
     public Set getKlasaUczniowies() {
         return this.klasaUczniowies;
@@ -160,6 +161,13 @@ public class Uczniowie  implements java.io.Serializable {
     
     public void setUwagis(Set uwagis) {
         this.uwagis = uwagis;
+    }
+    public Set getUczniowiePrzedmioties() {
+        return this.uczniowiePrzedmioties;
+    }
+    
+    public void setUczniowiePrzedmioties(Set uczniowiePrzedmioties) {
+        this.uczniowiePrzedmioties = uczniowiePrzedmioties;
     }
     public Set getOcenies() {
         return this.ocenies;
