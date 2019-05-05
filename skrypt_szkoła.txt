@@ -1,0 +1,105 @@
+CREATE TABLE NAUCZYCIELE
+(
+  id_nauczyciela INT NOT NULL,
+  imie VARCHAR(30) NOT NULL,
+  nazwisko VARCHAR(30) NOT NULL,
+  email INT,
+  nr_telefonu VARCHAR(30),
+  stawka VARCHAR(6) NOT NULL,
+  PRIMARY KEY (id_nauczyciela)
+);
+
+CREATE TABLE KLASA
+(
+  id_klasy INT NOT NULL,
+  oddzial VARCHAR(30) NOT NULL,
+  rocznik VARCHAR(30) NOT NULL,
+  id_nauczyciela INT NOT NULL,
+  PRIMARY KEY (id_klasy),
+  FOREIGN KEY (id_nauczyciela) REFERENCES NAUCZYCIELE(id_nauczyciela)
+);
+
+CREATE TABLE UCZNIOWIE
+(
+  id_ucznia INT NOT NULL,
+  imie VARCHAR(30) NOT NULL,
+  nazwisko VARCHAR(30) NOT NULL,
+  PESEL VARCHAR(11) NOT NULL,
+  nr_legitymacji FLOAT NOT NULL,
+  data_urodzenia DATE NOT NULL,
+  miasto VARCHAR(30) NOT NULL,
+  ulica VARCHAR(30) NOT NULL,
+  kod_pocztowy VARCHAR(30) NOT NULL,
+  nr_telefonu_do_rodzica VARCHAR(9),
+  PRIMARY KEY (id_ucznia)
+);
+
+CREATE TABLE PRZEDMIOTY
+(
+  id_przedmioty INT NOT NULL,
+  nazwa_przedmiotu VARCHAR(30) NOT NULL,
+  PRIMARY KEY (id_przedmioty)
+);
+
+CREATE TABLE UCZNIOWIE_PRZEDMIOTY
+(
+  id_przedmioty INT NOT NULL,
+  id_ucznia INT NOT NULL,
+  FOREIGN KEY (id_przedmioty) REFERENCES PRZEDMIOTY(id_przedmioty),
+  FOREIGN KEY (id_ucznia) REFERENCES UCZNIOWIE(id_ucznia)
+);
+
+CREATE TABLE OCENY
+(
+  id_oceny INT NOT NULL,
+  opis VARCHAR(100) NOT NULL,
+  data_wpisania DATE NOT NULL,
+  wartosc INT NOT NULL,
+  id_ucznia INT NOT NULL,
+  id_przedmioty INT NOT NULL,
+  id_nauczyciela INT NOT NULL,
+  PRIMARY KEY (id_oceny),
+  FOREIGN KEY (id_ucznia) REFERENCES UCZNIOWIE(id_ucznia),
+  FOREIGN KEY (id_przedmioty) REFERENCES PRZEDMIOTY(id_przedmioty),
+  FOREIGN KEY (id_nauczyciela) REFERENCES NAUCZYCIELE(id_nauczyciela)
+);
+
+CREATE TABLE UWAGI
+(
+  id_uwagi INT NOT NULL,
+  opis VARCHAR(100) NOT NULL,
+  data_wpisania DATE NOT NULL,
+  typ_uwagi BOOLEAN NOT NULL,
+  id_nauczyciela INT NOT NULL,
+  id_ucznia INT NOT NULL,
+  PRIMARY KEY (id_uwagi),
+  FOREIGN KEY (id_nauczyciela) REFERENCES NAUCZYCIELE(id_nauczyciela),
+  FOREIGN KEY (id_ucznia) REFERENCES UCZNIOWIE(id_ucznia)
+);
+
+CREATE TABLE OBECNOSC
+(
+  id_obecnosc INT NOT NULL,
+  typ_obecnosci BOOLEAN NOT NULL,
+  id_nauczyciela INT NOT NULL,
+  id_ucznia INT NOT NULL,
+  PRIMARY KEY (id_obecnosc),
+  FOREIGN KEY (id_nauczyciela) REFERENCES NAUCZYCIELE(id_nauczyciela),
+  FOREIGN KEY (id_ucznia) REFERENCES UCZNIOWIE(id_ucznia)
+);
+
+CREATE TABLE KLASA_UCZNIOWIE
+(
+  id_klasy INT NOT NULL,
+  id_ucznia INT NOT NULL,
+  FOREIGN KEY (id_klasy) REFERENCES KLASA(id_klasy),
+  FOREIGN KEY (id_ucznia) REFERENCES UCZNIOWIE(id_ucznia)
+);
+
+CREATE TABLE NAUCZYCIELE_PRZEDMIOTY
+(
+  id_nauczyciela INT NOT NULL,
+  id_przedmioty INT NOT NULL,
+  FOREIGN KEY (id_nauczyciela) REFERENCES NAUCZYCIELE(id_nauczyciela),
+  FOREIGN KEY (id_przedmioty) REFERENCES PRZEDMIOTY(id_przedmioty)
+);
