@@ -38,6 +38,7 @@ public class Logowanie extends javax.swing.JFrame {
         haslo = new javax.swing.JPasswordField();
         UczenRB = new javax.swing.JRadioButton();
         NauczycielRB = new javax.swing.JRadioButton();
+        alert = new javax.swing.JLabel();
 
         wybNauczyciel.setText("Uczeń");
         wybNauczyciel.addActionListener(new java.awt.event.ActionListener() {
@@ -78,23 +79,25 @@ public class Logowanie extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ID, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(haslo))
-                .addContainerGap(46, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addComponent(UczenRB)
-                .addGap(18, 18, 18)
-                .addComponent(NauczycielRB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Zaloguj)
-                .addGap(30, 30, 30))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(alert)
+                            .addComponent(UczenRB))
+                        .addGap(18, 18, 18)
+                        .addComponent(NauczycielRB)
+                        .addGap(32, 32, 32)
+                        .addComponent(Zaloguj))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ID, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(haslo))))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,16 +110,14 @@ public class Logowanie extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(haslo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(UczenRB)
-                            .addComponent(NauczycielRB)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(Zaloguj)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(UczenRB)
+                    .addComponent(NauczycielRB)
+                    .addComponent(Zaloguj))
+                .addGap(30, 30, 30)
+                .addComponent(alert)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -144,7 +145,7 @@ public class Logowanie extends javax.swing.JFrame {
     }//GEN-LAST:event_UczenRBActionPerformed
 
     private void ZalogujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZalogujActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_ZalogujActionPerformed
 
     private void NauczycielRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NauczycielRBActionPerformed
@@ -160,6 +161,7 @@ public class Logowanie extends javax.swing.JFrame {
     private javax.swing.JRadioButton NauczycielRB;
     private javax.swing.JRadioButton UczenRB;
     private javax.swing.JButton Zaloguj;
+    private javax.swing.JLabel alert;
     private javax.swing.JPasswordField haslo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
