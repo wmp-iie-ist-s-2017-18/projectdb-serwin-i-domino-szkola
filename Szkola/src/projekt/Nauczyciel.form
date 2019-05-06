@@ -995,7 +995,9 @@
                               <Component id="typObtext" min="-2" pref="125" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="wybierzP" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
@@ -1048,8 +1050,9 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="wybierzPrzedmiot1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="wybierzP" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="imieObtxt" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1260,6 +1263,11 @@
             <Component class="javax.swing.JButton" name="wylogujBtn1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Wyloguj"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="wybierzP">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Wybierz"/>
               </Properties>
             </Component>
           </SubComponents>

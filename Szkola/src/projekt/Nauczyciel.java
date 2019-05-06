@@ -121,6 +121,7 @@ public class Nauczyciel extends javax.swing.JFrame {
         TableNObec = new javax.swing.JTable();
         wyswietlNieobec = new javax.swing.JButton();
         wylogujBtn1 = new javax.swing.JButton();
+        wybierzP = new javax.swing.JButton();
         Uwagi = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         wybierzKlaseU = new javax.swing.JComboBox<String>();
@@ -666,6 +667,8 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         wylogujBtn1.setText("Wyloguj");
 
+        wybierzP.setText("Wybierz");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -695,7 +698,9 @@ public class Nauczyciel extends javax.swing.JFrame {
                         .addComponent(jLabel21)
                         .addGap(18, 18, 18)
                         .addComponent(typObtext, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(182, 182, 182)
+                .addGap(18, 18, 18)
+                .addComponent(wybierzP)
+                .addGap(93, 93, 93)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel25)
@@ -735,8 +740,9 @@ public class Nauczyciel extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel24)
-                            .addComponent(wybierzPrzedmiot1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
+                            .addComponent(wybierzPrzedmiot1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(wybierzP))
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(imieObtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16))
@@ -1066,6 +1072,7 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> wybierzKlaseU1;
     private javax.swing.JComboBox<String> wybierzKlaseU2;
     private javax.swing.JComboBox<String> wybierzKlaseUcz;
+    private javax.swing.JButton wybierzP;
     private javax.swing.JComboBox<String> wybierzPrzedmiot;
     private javax.swing.JComboBox<String> wybierzPrzedmiot1;
     private javax.swing.JComboBox<String> wyborUcznia;
