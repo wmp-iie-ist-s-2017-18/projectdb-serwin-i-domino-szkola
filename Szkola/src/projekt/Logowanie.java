@@ -5,15 +5,19 @@
  */
 package projekt;
 
+import hibernate.NauczycieleQuery;
+import hibernate.Uczniowie;
+import hibernate.UczniowieQuery;
+
 /**
  *
  * @author Natalia
  */
 public class Logowanie extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Logowanie
-     */
+    private UczniowieQuery queryUczen;
+    private NauczycieleQuery queryNauczyciel;
+    
     public Logowanie() {
         setTitle("Logowanie");
         initComponents();
@@ -145,7 +149,38 @@ public class Logowanie extends javax.swing.JFrame {
     }//GEN-LAST:event_UczenRBActionPerformed
 
     private void ZalogujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZalogujActionPerformed
-       
+if(evt.getSource().equals(Zaloguj))  {
+    alert.setText("");
+    String id = ID.getText();
+    char[] passw = haslo.getPassword();
+    String password = new String(passw);
+    queryNauczyciel = new NauczycieleQuery();
+    queryUczen = new UczniowieQuery();
+    
+    if(!(id.equals("")) && !(password.equals("")) && (NauczycielRB.isSelected() || UczenRB.isSelected() ) ){
+        if(UczenRB.isSelected()){
+            boolean test  = queryUczen.selecyByIDandPassword(id, password);
+            
+            if(test){
+                Uczniowie u = queryUczen.selectByIDandPassword(id, password);
+                new Uczen().setVisible(true);
+                this.setVisible(false);
+            }else{
+                alert.setText("Zły id lub hasło");
+            }
+        }
+       if(NauczycielRB.isSelected()){
+           new Nauczyciel().setVisible(true);
+           this.setVisible(false);
+       }
+       else{
+           alert.setText("Zły id lub hasło");
+       }
+    }else{
+        alert.setText("Błąd");
+    }
+
+}     
     }//GEN-LAST:event_ZalogujActionPerformed
 
     private void NauczycielRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NauczycielRBActionPerformed
