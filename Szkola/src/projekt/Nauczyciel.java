@@ -52,7 +52,7 @@ public class Nauczyciel extends javax.swing.JFrame {
         usunOcene = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         srednia_ocenLa = new javax.swing.JLabel();
-        wylogujBtn4 = new javax.swing.JButton();
+        wylogujOc = new javax.swing.JButton();
         SredniaOcenLabel = new javax.swing.JLabel();
         SredniaOcentxt = new javax.swing.JLabel();
         nauczyciele = new javax.swing.JPanel();
@@ -71,7 +71,7 @@ public class Nauczyciel extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         nrTel = new javax.swing.JTextField();
         stawka = new javax.swing.JTextField();
-        wylogujBtn3 = new javax.swing.JButton();
+        wylogujNauc = new javax.swing.JButton();
         Uczniowie = new javax.swing.JPanel();
         KlasaLabel = new javax.swing.JLabel();
         wybierzKlaseUcz = new javax.swing.JComboBox<String>();
@@ -98,7 +98,7 @@ public class Nauczyciel extends javax.swing.JFrame {
         kodPoczt = new javax.swing.JTextField();
         nrTelRodzica = new javax.swing.JTextField();
         nrLegitymacji = new javax.swing.JTextField();
-        wylogujBtn2 = new javax.swing.JButton();
+        wylogujUcz = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         wybierzKlaseU1 = new javax.swing.JComboBox<String>();
@@ -120,7 +120,7 @@ public class Nauczyciel extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         TableNObec = new javax.swing.JTable();
         wyswietlNieobec = new javax.swing.JButton();
-        wylogujBtn1 = new javax.swing.JButton();
+        wylogujOb = new javax.swing.JButton();
         wybierzP = new javax.swing.JButton();
         Uwagi = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -143,7 +143,6 @@ public class Nauczyciel extends javax.swing.JFrame {
         typ_uwagiComBox = new javax.swing.JComboBox();
         jLabel22 = new javax.swing.JLabel();
         dataWpistxt = new javax.swing.JTextField();
-        wylogujBtn = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,7 +212,12 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         jLabel13.setText("Średnia ocen: ");
 
-        wylogujBtn4.setText("Wyloguj");
+        wylogujOc.setText("Wyloguj");
+        wylogujOc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wylogujOcActionPerformed(evt);
+            }
+        });
 
         SredniaOcenLabel.setText("Średnia ocen: ");
 
@@ -260,15 +264,15 @@ public class Nauczyciel extends javax.swing.JFrame {
                             .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(OcenyLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(poprawOcene, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dodajOcene, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(usunOcene, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(53, Short.MAX_VALUE))
+                        .addContainerGap(63, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OcenyLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(wylogujBtn4))))
+                        .addComponent(wylogujOc))))
             .addGroup(OcenyLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -307,7 +311,7 @@ public class Nauczyciel extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(OcenyLayout.createSequentialGroup()
-                        .addComponent(wylogujBtn4)
+                        .addComponent(wylogujOc)
                         .addGap(13, 13, 13)
                         .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ocena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,7 +377,12 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         jLabel8.setText("Wynagrodzenie");
 
-        wylogujBtn3.setText("Wyloguj");
+        wylogujNauc.setText("Wyloguj");
+        wylogujNauc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wylogujNaucActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout nauczycieleLayout = new javax.swing.GroupLayout(nauczyciele);
         nauczyciele.setLayout(nauczycieleLayout);
@@ -410,15 +419,15 @@ public class Nauczyciel extends javax.swing.JFrame {
                                 .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nrTel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(stawka, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nauczycieleLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(wylogujBtn3))
+                .addComponent(wylogujNauc))
         );
         nauczycieleLayout.setVerticalGroup(
             nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nauczycieleLayout.createSequentialGroup()
-                .addComponent(wylogujBtn3)
+                .addComponent(wylogujNauc)
                 .addGap(5, 5, 5)
                 .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -438,7 +447,7 @@ public class Nauczyciel extends javax.swing.JFrame {
                     .addComponent(dodajNauczyciela)
                     .addComponent(zaktualizujInfoN)
                     .addComponent(usunNauczyciela))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
@@ -502,7 +511,12 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         jLabel30.setText("Nr legitymacji");
 
-        wylogujBtn2.setText("Wyloguj");
+        wylogujUcz.setText("Wyloguj");
+        wylogujUcz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wylogujUczActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout UczniowieLayout = new javax.swing.GroupLayout(Uczniowie);
         Uczniowie.setLayout(UczniowieLayout);
@@ -526,7 +540,7 @@ public class Nauczyciel extends javax.swing.JFrame {
                         .addComponent(zaktualizujInfoU)
                         .addGap(18, 18, 18)
                         .addComponent(usunUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 63, Short.MAX_VALUE))
+                        .addGap(0, 83, Short.MAX_VALUE))
                     .addGroup(UczniowieLayout.createSequentialGroup()
                         .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(imieUcznia)
@@ -563,16 +577,16 @@ public class Nauczyciel extends javax.swing.JFrame {
                         .addGap(27, 27, 27))))
             .addGroup(UczniowieLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(wylogujBtn2))
+                .addComponent(wylogujUcz))
             .addGroup(UczniowieLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
                 .addContainerGap())
         );
         UczniowieLayout.setVerticalGroup(
             UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UczniowieLayout.createSequentialGroup()
-                .addComponent(wylogujBtn2)
+                .addComponent(wylogujUcz)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(KlasaLabel)
@@ -605,7 +619,7 @@ public class Nauczyciel extends javax.swing.JFrame {
                     .addComponent(jLabel30)
                     .addComponent(nrLegitymacji, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -665,7 +679,12 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         wyswietlNieobec.setText("Wyświetl nieobecności");
 
-        wylogujBtn1.setText("Wyloguj");
+        wylogujOb.setText("Wyloguj");
+        wylogujOb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wylogujObActionPerformed(evt);
+            }
+        });
 
         wybierzP.setText("Wybierz");
 
@@ -711,15 +730,15 @@ public class Nauczyciel extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(wyswietlNieobec))
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(wylogujBtn1))
+                .addComponent(wylogujOb))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(390, 390, 390)
                     .addComponent(jSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(389, Short.MAX_VALUE)))
+                    .addContainerGap(409, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -734,7 +753,7 @@ public class Nauczyciel extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel25))
-                    .addComponent(wylogujBtn1))
+                    .addComponent(wylogujOb))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -767,9 +786,9 @@ public class Nauczyciel extends javax.swing.JFrame {
                             .addComponent(wyswietlNieobec))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
+                .addComponent(jSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Obecności", jPanel2);
@@ -831,8 +850,6 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         jLabel22.setText("Data wpisania");
 
-        wylogujBtn.setText("Wyloguj");
-
         javax.swing.GroupLayout UwagiLayout = new javax.swing.GroupLayout(Uwagi);
         Uwagi.setLayout(UwagiLayout);
         UwagiLayout.setHorizontalGroup(
@@ -840,32 +857,30 @@ public class Nauczyciel extends javax.swing.JFrame {
             .addGroup(UwagiLayout.createSequentialGroup()
                 .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UwagiLayout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(typ_uwagiComBox, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(UwagiLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(UwagiLayout.createSequentialGroup()
-                                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel22)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5))
-                                .addGap(25, 25, 25)
-                                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nazwiskoUwagitxt, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(imieUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dataWpistxt, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel15)
+                            .addComponent(trescUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(UwagiLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(67, 67, 67)
                                 .addComponent(wybierzKlaseU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(trescUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(UwagiLayout.createSequentialGroup()
+                                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel22)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel4))
+                                .addGap(25, 25, 25)
+                                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dataWpistxt)
+                                    .addComponent(nazwiskoUwagitxt)
+                                    .addComponent(imieUwagi)
+                                    .addComponent(typ_uwagiComBox, 0, 135, Short.MAX_VALUE)))))
                     .addGroup(UwagiLayout.createSequentialGroup()
-                        .addGap(120, 120, 120)
+                        .addGap(122, 122, 122)
                         .addComponent(dodajUwage)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -876,62 +891,59 @@ public class Nauczyciel extends javax.swing.JFrame {
                                 .addGap(35, 35, 35)
                                 .addComponent(wyswietlUwagi))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(20, Short.MAX_VALUE))
+                        .addContainerGap(30, Short.MAX_VALUE))
                     .addGroup(UwagiLayout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(45, 45, 45)
                         .addComponent(wybierzKlaseN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(wylogujBtn))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         UwagiLayout.setVerticalGroup(
             UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UwagiLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(wybierzKlaseU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(imieUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(nazwiskoUwagitxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dataWpistxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(typ_uwagiComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(trescUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(dodajUwage)
-                .addGap(19, 19, 19))
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UwagiLayout.createSequentialGroup()
-                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UwagiLayout.createSequentialGroup()
+                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, UwagiLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(wybierzKlaseU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(imieUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(nazwiskoUwagitxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(dataWpistxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(typ_uwagiComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(trescUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(dodajUwage))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, UwagiLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(wybierzKlaseN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(wylogujBtn))
-                .addGap(27, 27, 27)
-                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(wyborUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(wyswietlUwagi))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(31, 31, 31))
-            .addGroup(UwagiLayout.createSequentialGroup()
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(wybierzKlaseN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(wyborUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(wyswietlUwagi))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(45, 45, 45))
         );
 
         jTabbedPane1.addTab("Uwagi ", Uwagi);
@@ -940,10 +952,7 @@ public class Nauczyciel extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -969,7 +978,38 @@ public class Nauczyciel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_dodajUwageActionPerformed
 
+    private void wylogujOcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujOcActionPerformed
+        if(evt.getSource().equals(wylogujOc)){
+            this.setVisible(false);
+            Logowanie loginIn = new Logowanie();
+        loginIn.setVisible(true);
+        }
+    }//GEN-LAST:event_wylogujOcActionPerformed
 
+    private void wylogujNaucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujNaucActionPerformed
+        if(evt.getSource().equals(wylogujNauc)){
+            this.setVisible(false);
+            Logowanie loginIn = new Logowanie();
+        loginIn.setVisible(true);
+        }
+    }//GEN-LAST:event_wylogujNaucActionPerformed
+
+    private void wylogujUczActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujUczActionPerformed
+        if(evt.getSource().equals(wylogujUcz)){
+            this.setVisible(false);
+            Logowanie loginIn = new Logowanie();
+        loginIn.setVisible(true);
+        }
+    }//GEN-LAST:event_wylogujUczActionPerformed
+
+    private void wylogujObActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujObActionPerformed
+        if(evt.getSource().equals(wylogujOb)){
+            this.setVisible(false);
+            Logowanie loginIn = new Logowanie();
+        loginIn.setVisible(true);
+    }//GEN-LAST:event_wylogujObActionPerformed
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ImieLabel;
@@ -1078,11 +1118,10 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> wybierzPrzedmiot1;
     private javax.swing.JComboBox<String> wyborUcznia;
     private javax.swing.JComboBox<String> wyborUcznia1;
-    private javax.swing.JButton wylogujBtn;
-    private javax.swing.JButton wylogujBtn1;
-    private javax.swing.JButton wylogujBtn2;
-    private javax.swing.JButton wylogujBtn3;
-    private javax.swing.JButton wylogujBtn4;
+    private javax.swing.JButton wylogujNauc;
+    private javax.swing.JButton wylogujOb;
+    private javax.swing.JButton wylogujOc;
+    private javax.swing.JButton wylogujUcz;
     private javax.swing.JButton wyswietl;
     private javax.swing.JButton wyswietlNieobec;
     private javax.swing.JButton wyswietlUwagi;
