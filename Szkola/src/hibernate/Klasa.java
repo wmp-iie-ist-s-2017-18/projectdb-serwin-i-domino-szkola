@@ -71,15 +71,7 @@ public class Klasa  implements java.io.Serializable {
         this.klasaUczniowies = klasaUczniowies;
     }
 
-public String ComboKlasa(){
-    
-    StringBuilder combo = new StringBuilder();
-    combo.append(rocznik);
-    combo.append(" ");
-    
-    return combo.toString();
-    
-}
+
 
 
 }
