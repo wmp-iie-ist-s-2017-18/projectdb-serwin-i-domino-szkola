@@ -5,8 +5,11 @@
  */
 package hibernate;
 
+import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -16,6 +19,7 @@ public class NauczycieleQuery {
 
     Session session = null;
     Query query = null;
+    Criteria criteria = null;
 
     public boolean selecyByIDandPassword(int id, String password) {
         Nauczyciele naucz = null;
@@ -39,4 +43,22 @@ public class NauczycieleQuery {
         session.close();
         return naucz;
     }
+    
+    public void nauczycieleAdd(Nauczyciele n){
+        session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+        session.save(n);
+        t.commit();
+        session.close();
+        
+    }
+ 
+    public List <Nauczyciele> nauczycieleSelectAll(){
+        session = HibernateUtil.getSessionFactory().openSession();
+        criteria = session.createCriteria(Nauczyciele.class);
+        List <Nauczyciele> nauczyciele = criteria.list();
+        session.close();
+        return nauczyciele;
+    }
 }
+

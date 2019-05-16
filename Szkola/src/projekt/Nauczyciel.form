@@ -310,9 +310,9 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="11">
+                        <Column editable="true" title="Data" type="java.lang.Object"/>
                         <Column editable="true" title="Ocena" type="java.lang.Object"/>
                         <Column editable="true" title="Opis" type="java.lang.Object"/>
-                        <Column editable="true" title="Data" type="java.lang.Object"/>
                         <Column editable="true" title="Wystawi&#x142;" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -377,6 +377,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Dodaj ocen&#x119;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dodajOceneActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="poprawOcene">
               <Properties>
@@ -537,12 +540,12 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="Nauczyciele">
+                <Component class="javax.swing.JTable" name="nauTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="5" rowCount="9">
                         <Column editable="true" title="Imi&#x119;" type="java.lang.Object"/>
-                        <Column editable="true" title="Naziwsko" type="java.lang.Object"/>
+                        <Column editable="true" title="Nazwisko" type="java.lang.Object"/>
                         <Column editable="true" title="E - mail" type="java.lang.Object"/>
                         <Column editable="true" title="Nr telefonu" type="java.lang.Object"/>
                         <Column editable="true" title="Wynagrodzenie" type="java.lang.Object"/>
@@ -598,6 +601,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usu&#x144; nauczyciela"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usunNauczycielaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -646,19 +652,18 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                               <Component id="wybierzKlaseUcz" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
                               <Component id="dodajUcznia" min="-2" pref="138" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="zaktualizujInfoU" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="usunUcznia" min="-2" pref="138" max="-2" attributes="0"/>
+                              <Component id="usunUczniabtn" min="-2" pref="138" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="imieUcznia" max="32767" attributes="0"/>
+                                  <Component id="imieUczniatxt" max="32767" attributes="0"/>
                                   <Component id="naziwskoUcznia" max="32767" attributes="0"/>
                                   <Component id="pesel" pref="120" max="32767" attributes="0"/>
                               </Group>
@@ -704,7 +709,9 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="263" max="-2" attributes="0"/>
+                      <Component id="alertU" min="-2" pref="229" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="wylogujUcz" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -718,19 +725,22 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="wylogujUcz" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="wylogujUcz" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="alertU" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="KlasaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="wybierzKlaseUcz" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="dodajUcznia" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="zaktualizujInfoU" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="usunUcznia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="usunUczniabtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ImieLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="imieUcznia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="imieUczniatxt" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="urodzeniaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="dataUrodzenia" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="kodlabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -755,7 +765,7 @@
                           <Component id="nrLegitymacji" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" pref="301" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" pref="172" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -793,7 +803,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="UczenTable">
+                <Component class="javax.swing.JTable" name="uczTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="9" rowCount="10">
@@ -880,10 +890,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zaktualizujInfoUActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="usunUcznia">
+            <Component class="javax.swing.JButton" name="usunUczniabtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usu&#x144; ucznia"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usunUczniabtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="ImieLabel">
               <Properties>
@@ -900,7 +913,7 @@
                 <Property name="text" type="java.lang.String" value="Pesel"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="imieUcznia">
+            <Component class="javax.swing.JTextField" name="imieUczniatxt">
             </Component>
             <Component class="javax.swing.JTextField" name="naziwskoUcznia">
             </Component>
@@ -955,6 +968,8 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="wylogujUczActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="alertU">
             </Component>
           </SubComponents>
         </Container>
@@ -1344,9 +1359,10 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="wybierzKlaseN" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="wylogujUw" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -1358,7 +1374,7 @@
                       <Component id="jSeparator2" min="-2" pref="346" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -1394,10 +1410,15 @@
                               <Component id="dodajUwage" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="wybierzKlaseN" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="wybierzKlaseN" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="wylogujUw" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -1590,6 +1611,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="dataWpistxt">
+            </Component>
+            <Component class="javax.swing.JButton" name="wylogujUw">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Wyloguj"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="wylogujUwActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
