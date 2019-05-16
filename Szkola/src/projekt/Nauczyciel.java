@@ -9,8 +9,12 @@ import hibernate.Klasa;
 import hibernate.KlasaQuery;
 import hibernate.Nauczyciele;
 import hibernate.NauczycieleQuery;
+import hibernate.Oceny;
+import hibernate.OcenyQuery;
 import hibernate.Uczniowie;
 import hibernate.UczniowieQuery;
+import hibernate.Uwagi;
+import hibernate.UwagiQuery;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -26,16 +30,52 @@ public class Nauczyciel extends javax.swing.JFrame {
     private List<Nauczyciele> nauczy;
     private UczniowieQuery queryU;
     private List<Uczniowie> ucz;
+    private OcenyQuery queryOc;
     private List<Klasa> klas;
-    private KlasaQuery queryKlasy;
+    private List <Oceny> ocenki;
+    private UwagiQuery queryUw;
+    private List <Uwagi> uwaga;
+    
 
     public Nauczyciel() {
         initComponents();
         NauczTableSelectAll();
         UcznTableSelectAll();
-        
+        OcenyTableSelectAll();
+        UwagiTableSelectAll();
+       
     }
+    
+    
+    
+   public void UwagiTableSelectAll(){
+       queryUw = new UwagiQuery();
+       Object[] kolumny = {"Data wpisania", "Typ uwagi", "Opis"};
+       DefaultTableModel model = new DefaultTableModel();
+       model.setColumnIdentifiers(kolumny);
+       
+        try{
+            uwaga = queryUw.uwagiSelectAll();
+            Object [] row = new Object[3];
+            
+            for(Uwagi uw: uwaga){
+                row[0] = uw.getDataWpisania();
+                row[1] = uw.isTypUwagi();
+                row[2] = uw.getOpis();
+                
+                model.addRow(row);
+            }
+            
+        }catch(Exception e) {
+            System.out.println("Bład połączenia z bazą!");
 
+    }
+        TableUwagi.setModel(model);
+           
+       
+   }
+    
+   
     public void NauczTableSelectAll() {
 
         query = new NauczycieleQuery();
@@ -66,6 +106,30 @@ public class Nauczyciel extends javax.swing.JFrame {
 
     }
     
+  public void OcenyTableSelectAll(){
+      queryOc = new OcenyQuery();
+      Object[] kolumna = {"Data", "Ocena", "Opis"};
+      DefaultTableModel model = new DefaultTableModel();
+      model.setColumnIdentifiers(kolumna);
+      
+      try{
+          ocenki = queryOc.ocenySelectAll();
+          Object[] row = new Object[3];
+          
+          for(Oceny o: ocenki){
+              row[0] = o.getDataWpisania();
+              row[1] = o.getWartosc();
+              row[2] = o.getOpis();
+              
+              model.addRow(row);
+          }
+      }catch(Exception e) {
+            System.out.println("Bład połączenia z bazą!");
+            
+            
+      }
+        ocenyTable.setModel(model);
+  }
   
     public void UcznTableSelectAll() {
         queryU = new UczniowieQuery();
@@ -119,7 +183,7 @@ public class Nauczyciel extends javax.swing.JFrame {
         daneOceny = new javax.swing.JComboBox<String>();
         wyswietl = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ocenyTable = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -246,6 +310,11 @@ public class Nauczyciel extends javax.swing.JFrame {
         jLabel2.setText("Przedmiot");
 
         wybierzPrzedmiot.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Matematyka", "Język polski", "Biologia", "Geografia", "Fizyka", "Historia", "Wychowanie fizyczne", "Język angielski", "Jezyk niemiecki" }));
+        wybierzPrzedmiot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wybierzPrzedmiotActionPerformed(evt);
+            }
+        });
 
         wybierz.setText("Wybierz");
 
@@ -253,25 +322,25 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         wyswietl.setText("Wyświetl");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ocenyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Data", "Ocena", "Opis", "Wystawił"
+                "Data", "Ocena", "Opis"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(ocenyTable);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -330,12 +399,11 @@ public class Nauczyciel extends javax.swing.JFrame {
                                         .addGap(27, 27, 27)
                                         .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(wyswietl)
-                                            .addComponent(wybierz))))))
-                        .addGap(175, 175, 175))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OcenyLayout.createSequentialGroup()
+                                            .addComponent(wybierz)))))))
+                    .addGroup(OcenyLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(OcenyLayout.createSequentialGroup()
@@ -394,7 +462,7 @@ public class Nauczyciel extends javax.swing.JFrame {
                                 .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(daneOceny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(wyswietl))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(OcenyLayout.createSequentialGroup()
@@ -480,9 +548,12 @@ public class Nauczyciel extends javax.swing.JFrame {
         nauczyciele.setLayout(nauczycieleLayout);
         nauczycieleLayout.setHorizontalGroup(
             nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nauczycieleLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(wylogujNauc))
             .addGroup(nauczycieleLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(nauczycieleLayout.createSequentialGroup()
                         .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,9 +583,6 @@ public class Nauczyciel extends javax.swing.JFrame {
                                     .addComponent(nrTel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(stawka, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nauczycieleLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(wylogujNauc))
         );
         nauczycieleLayout.setVerticalGroup(
             nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -539,9 +607,9 @@ public class Nauczyciel extends javax.swing.JFrame {
                     .addComponent(dodajNauczyciela)
                     .addComponent(zaktualizujInfoN)
                     .addComponent(usunNauczyciela))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Nauczyciele", nauczyciele);
@@ -772,7 +840,7 @@ public class Nauczyciel extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Data nieobecności", "Przedmiot"
+                "Data ", "Przedmiot"
             }
         ));
         jScrollPane6.setViewportView(TableNObec);
@@ -922,24 +990,24 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         TableUwagi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Data wpisania", "Typ_uwagi", "Opis", "Wpisał"
+                "Data wpisania", "Typ_uwagi", "Opis"
             }
         ));
         jScrollPane2.setViewportView(TableUwagi);
@@ -987,24 +1055,25 @@ public class Nauczyciel extends javax.swing.JFrame {
                     .addGroup(UwagiLayout.createSequentialGroup()
                         .addGap(122, 122, 122)
                         .addComponent(dodajUwage)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addGap(85, 85, 85)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UwagiLayout.createSequentialGroup()
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(UwagiLayout.createSequentialGroup()
-                                .addComponent(wyborUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(wyswietlUwagi))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(30, Short.MAX_VALUE))
                     .addGroup(UwagiLayout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
                         .addComponent(wybierzKlaseN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(wylogujUw))))
+                        .addComponent(wylogujUw))
+                    .addGroup(UwagiLayout.createSequentialGroup()
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(UwagiLayout.createSequentialGroup()
+                                .addComponent(wyborUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(wyswietlUwagi)
+                                .addGap(0, 53, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         UwagiLayout.setVerticalGroup(
             UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1144,6 +1213,10 @@ public class Nauczyciel extends javax.swing.JFrame {
        
     }//GEN-LAST:event_usunUczniabtnActionPerformed
 
+    private void wybierzPrzedmiotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wybierzPrzedmiotActionPerformed
+     
+    }//GEN-LAST:event_wybierzPrzedmiotActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ImieLabel;
@@ -1213,7 +1286,6 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField kodPoczt;
     private javax.swing.JLabel kodlabel;
     private javax.swing.JTextField miasto;
@@ -1227,6 +1299,7 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JTextField nrTel;
     private javax.swing.JTextField nrTelRodzica;
     private javax.swing.JTextField ocena;
+    private javax.swing.JTable ocenyTable;
     private javax.swing.JTextField opis;
     private javax.swing.JTextField pesel;
     private javax.swing.JButton poprawOcene;
