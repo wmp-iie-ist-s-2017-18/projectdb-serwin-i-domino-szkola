@@ -11,9 +11,13 @@ import hibernate.Nauczyciele;
 import hibernate.NauczycieleQuery;
 import hibernate.Oceny;
 import hibernate.OcenyQuery;
+import hibernate.Przedmioty;
+import hibernate.PrzedmiotyQuery;
 import hibernate.Uczniowie;
 import hibernate.UczniowieQuery;
 import hibernate.Uwagi;
+import hibernate.Obecnosc;
+import hibernate.ObecnosciQuery;
 import hibernate.UwagiQuery;
 import java.util.List;
 import java.util.Vector;
@@ -33,11 +37,14 @@ public class Nauczyciel extends javax.swing.JFrame {
     private UczniowieQuery queryU;
     private List<Uczniowie> ucz;
     private OcenyQuery queryOc;
-    private List<Klasa> klas;
-    private List <Oceny> ocenki;
+    private List<Klasa> klasy;
+    private List<Oceny> ocenki;
     private UwagiQuery queryUw;
-    private List <Uwagi> uwaga;
-    
+    private List<Uwagi> uwaga;
+    private PrzedmiotyQuery queryP;
+    private List<Przedmioty> przedmiot;
+    private List <Obecnosc> obecnosc;
+    private ObecnosciQuery queryOb;
 
     public Nauczyciel() {
         initComponents();
@@ -46,87 +53,148 @@ public class Nauczyciel extends javax.swing.JFrame {
         OcenyTableSelectAll();
         UwagiTableSelectAll();
         KlasaComboBox();
-       
-    }
-    
-    public void KlasaComboBox(){
-        Session session = null;
-        try{
-            session = HibernateUtil.getSessionFactory().openSession();
-            
-            Criteria criteria = session.createCriteria(Klasa.class);
-            List <Klasa> klasy = criteria.list();
-            
-            wybierzKlaseOb.removeAllItems();
-            wybierzKlaseOb2.removeAllItems();
-            
-            wybierzKlaseU.removeAllItems();
-            wybierzKlaseU2.removeAllItems();
-            
-            wybierzKlase.removeAllItems();
-            wybierzKlaseUcz.removeAllItems();
-            
-            
-            wybierzOddzialUw1.removeAllItems();
-            wybierzOddzialUw2.removeAllItems();
-            wybierzOddzialOb.removeAllItems();
-            wybierzOddzialOb1.removeAllItems();
-            wybierzOddzialUcz.removeAllItems();
-            wybierzOddzialOc.removeAllItems();
-            
-            for(Klasa k : klasy){
-                wybierzKlaseOb.addItem(k.getRocznik());
-                wybierzKlaseOb2.addItem(k.getRocznik());
-                
-                wybierzKlaseU.addItem(k.getRocznik());
-                wybierzKlaseU2.addItem(k.getRocznik());
-                
-                wybierzKlaseUcz.addItem(k.getRocznik());
-                wybierzKlase.addItem(k.getRocznik());
-                
-                wybierzOddzialUw1.addItem(k.getOddzial());
-                wybierzOddzialUw2.addItem(k.getOddzial());
-                wybierzOddzialOb.addItem(k.getOddzial());
-                wybierzOddzialOb1.addItem(k.getOddzial());
-                wybierzOddzialOc.addItem(k.getOddzial());
-                wybierzOddzialUcz.addItem(k.getOddzial());
-                
-            }
-            session.close();
-            
-       }catch(Exception e) {
-            System.out.println("Bład połączenia z bazą!");
-    }
-    }
-        
-   public void UwagiTableSelectAll(){
-       queryUw = new UwagiQuery();
-       Object[] kolumny = {"Data wpisania", "Typ uwagi", "Opis"};
-       DefaultTableModel model = new DefaultTableModel();
-       model.setColumnIdentifiers(kolumny);
-       
-        try{
-            uwaga = queryUw.uwagiSelectAll();
-            Object [] row = new Object[3];
-            
-            for(Uwagi uw: uwaga){
-                row[0] = uw.getDataWpisania();
-                row[1] = uw.isTypUwagi();
-                row[2] = uw.getOpis();
-                
-                model.addRow(row);
-            }
-            
-        }catch(Exception e) {
-            System.out.println("Bład połączenia z bazą!");
+        UczniowieCombobox();
+        PrzedmiotyComboBox();
+        TypUwagiComboBox();
 
     }
-        TableUwagi.setModel(model);
-           
-       
-   }
     
-   
+  
+    public void TypUwagiComboBox(){
+         Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            Criteria criteria = session.createCriteria(Uwagi.class);
+            uwaga  = criteria.list();
+
+            typ_uwagiComBox.removeAllItems();
+
+            for (Uwagi uw : uwaga) {
+               typ_uwagiComBox.addItem(uw.getTypUwagi());
+            }
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Bład połączenia z bazą!");
+        }
+    }
+    
+      public void PrzedmiotyComboBox(){
+         Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            Criteria criteria = session.createCriteria(Przedmioty.class);
+            przedmiot  = criteria.list();
+
+            wybierzPrzedmiotOc.removeAllItems();
+            wybierzPrzedmiotOb.removeAllItems();
+            
+
+            for (Przedmioty p : przedmiot) {
+             
+               wybierzPrzedmiotOc.addItem(p.getNazwaPrzedmiotu());
+               wybierzPrzedmiotOb.addItem(p.getNazwaPrzedmiotu());
+            }
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Bład połączenia z bazą!");
+        }
+    }
+    
+    
+
+    public void UczniowieCombobox() {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            Criteria criteria = session.createCriteria(Uczniowie.class);
+            ucz = criteria.list();
+
+            wyborUcznia.removeAllItems();
+            wyborUcznia_Oc.removeAllItems();
+            wyborUczniaOb.removeAllItems();
+
+            for (Uczniowie u : ucz) {
+                wyborUcznia.addItem(u.getImie() + " " + u.getNazwisko());
+                wyborUcznia_Oc.addItem(u.getImie() + " " + u.getNazwisko());
+                wyborUczniaOb.addItem(u.getImie() + " " + u.getNazwisko());
+            }
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Bład połączenia z bazą!");
+        }
+    }
+
+    public void KlasaComboBox() {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            Criteria criteria = session.createCriteria(Klasa.class);
+            klasy = criteria.list();
+
+            wybierzKlaseOb.removeAllItems();
+            wybierzKlaseOb2.removeAllItems();
+
+            wybierzKlaseU.removeAllItems();
+            wybierzKlaseU2.removeAllItems();
+
+            wybierzKlase.removeAllItems();
+            wybierzKlaseUcz.removeAllItems();
+
+            for (Klasa k : klasy) {
+                wybierzKlaseOb.addItem(k.getRocznik() + k.getOddzial());
+                wybierzKlaseOb2.addItem(k.getRocznik() + k.getOddzial());
+
+                wybierzKlaseU.addItem(k.getRocznik() + k.getOddzial());
+                wybierzKlaseU2.addItem(k.getRocznik() + k.getOddzial());
+
+                wybierzKlaseUcz.addItem(k.getRocznik() + k.getOddzial());
+                wybierzKlase.addItem(k.getRocznik() + k.getOddzial());
+
+            }
+            session.close();
+
+        } catch (Exception e) {
+            System.out.println("Bład połączenia z bazą!");
+        }
+    }
+
+    public void UwagiTableSelectAll() {
+        queryUw = new UwagiQuery();
+        query = new NauczycieleQuery();
+        Object[] kolumny = {"Data wpisania", "Typ uwagi", "Opis", "Wpisał"};
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(kolumny);
+
+        try {
+            nauczy = query.nauczycieleSelectAll();
+            uwaga = queryUw.uwagiSelectAll();
+            Object[] row = new Object[3];
+
+            for (Uwagi uw : uwaga) {
+                row[0] = uw.getDataWpisania();
+                row[1] = uw.getTypUwagi();
+                row[2] = uw.getOpis();
+
+                model.addRow(row);
+            }
+
+            for (Nauczyciele n : nauczy) {
+                row[3] = n.getImie() + " " + n.getNazwisko();
+                model.addRow(row);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Bład połączenia z bazą!");
+
+        }
+        TableUwagi.setModel(model);
+
+    }
+
     public void NauczTableSelectAll() {
 
         query = new NauczycieleQuery();
@@ -156,44 +224,51 @@ public class Nauczyciel extends javax.swing.JFrame {
         nauTable.setModel(model);
 
     }
-    
-  public void OcenyTableSelectAll(){
-      queryOc = new OcenyQuery();
-      Object[] kolumna = {"Data", "Ocena", "Opis"};
-      DefaultTableModel model = new DefaultTableModel();
-      model.setColumnIdentifiers(kolumna);
-      
-      try{
-          ocenki = queryOc.ocenySelectAll();
-          Object[] row = new Object[3];
-          
-          for(Oceny o: ocenki){
-              row[0] = o.getDataWpisania();
-              row[1] = o.getWartosc();
-              row[2] = o.getOpis();
-              
-              model.addRow(row);
-          }
-      }catch(Exception e) {
+
+    public void OcenyTableSelectAll() {
+        queryOc = new OcenyQuery();
+        query = new NauczycieleQuery();
+        Object[] kolumna = {"Data", "Ocena", "Opis", "Wystawił:"};
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(kolumna);
+
+        try {
+            nauczy = query.nauczycieleSelectAll();
+            ocenki = queryOc.ocenySelectAll();
+            Object[] row = new Object[4];
+
+            for (Oceny o : ocenki) {
+                row[0] = o.getDataWpisania();
+                row[1] = o.getWartosc();
+                row[2] = o.getOpis();
+
+                model.addRow(row);
+            }
+
+            for (Nauczyciele n : nauczy) {
+                row[3] = n.getNazwisko() + " " + n.getImie();
+
+                model.addRow(row);
+            }
+        } catch (Exception e) {
             System.out.println("Bład połączenia z bazą!");
-            
-            
-      }
+
+        }
         ocenyTable.setModel(model);
-  }
-  
+    }
+
     public void UcznTableSelectAll() {
         queryU = new UczniowieQuery();
         Object[] kolumn = {"Imie", "Nazwisko", "Pesel", "Data urodzenia",
             "Ulica", "Miasto", "Kod pocztowy", "Nr tel.rodziców", "Nr legitymacji"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(kolumn);
-        
-        try{
+
+        try {
             ucz = queryU.uczniowieSelectAll();
-            Object [] row = new Object[9];
-            
-            for(Uczniowie u: ucz){
+            Object[] row = new Object[9];
+
+            for (Uczniowie u : ucz) {
                 row[0] = u.getImie();
                 row[1] = u.getNazwisko();
                 row[2] = u.getPesel();
@@ -203,14 +278,14 @@ public class Nauczyciel extends javax.swing.JFrame {
                 row[6] = u.getKodPocztowy();
                 row[7] = u.getNrTelefonuDoRodzica();
                 row[8] = u.getNrLegitymacji();
-                
+
                 model.addRow(row);
             }
-            
-        }catch(Exception e) {
+
+        } catch (Exception e) {
             System.out.println("Bład połączenia z bazą!");
 
-    }
+        }
         uczTable.setModel(model);
     }
 
@@ -229,9 +304,9 @@ public class Nauczyciel extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         wybierzKlase = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
-        wybierzPrzedmiot = new javax.swing.JComboBox<String>();
+        wybierzPrzedmiotOc = new javax.swing.JComboBox<String>();
         wybierz = new javax.swing.JButton();
-        daneOceny = new javax.swing.JComboBox<String>();
+        wyborUcznia_Oc = new javax.swing.JComboBox<String>();
         wyswietl = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ocenyTable = new javax.swing.JTable();
@@ -249,7 +324,6 @@ public class Nauczyciel extends javax.swing.JFrame {
         wylogujOc = new javax.swing.JButton();
         SredniaOcenLabel = new javax.swing.JLabel();
         SredniaOcentxt = new javax.swing.JLabel();
-        wybierzOddzialOc = new javax.swing.JComboBox();
         nauczyciele = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         imieNauczyciela = new javax.swing.JTextField();
@@ -267,6 +341,51 @@ public class Nauczyciel extends javax.swing.JFrame {
         nrTel = new javax.swing.JTextField();
         stawka = new javax.swing.JTextField();
         wylogujNauc = new javax.swing.JButton();
+        Uwagi = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        wybierzKlaseU = new javax.swing.JComboBox<String>();
+        jLabel4 = new javax.swing.JLabel();
+        trescUwagi = new javax.swing.JTextField();
+        dodajUwage = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        imieUwagi = new javax.swing.JTextField();
+        nazwiskoUwagitxt = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel12 = new javax.swing.JLabel();
+        wybierzKlaseU2 = new javax.swing.JComboBox<String>();
+        wyborUcznia = new javax.swing.JComboBox<String>();
+        wyswietlUwagi = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TableUwagi = new javax.swing.JTable();
+        jLabel15 = new javax.swing.JLabel();
+        typ_uwagiComBox = new javax.swing.JComboBox();
+        jLabel22 = new javax.swing.JLabel();
+        dataWpistxt = new javax.swing.JTextField();
+        wylogujUw = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        wybierzKlaseOb = new javax.swing.JComboBox<String>();
+        jLabel16 = new javax.swing.JLabel();
+        imieObtxt = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        nazwiskoObtxt = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        dataObe = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        wybierzPrzedmiotOb = new javax.swing.JComboBox<String>();
+        typObec = new javax.swing.JComboBox();
+        dodajObecnoscbtn = new javax.swing.JButton();
+        jSeparator = new javax.swing.JSeparator();
+        jLabel25 = new javax.swing.JLabel();
+        wybierzKlaseOb2 = new javax.swing.JComboBox<String>();
+        wyborUczniaOb = new javax.swing.JComboBox<String>();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        TableNObec = new javax.swing.JTable();
+        wyswietlNieobec = new javax.swing.JButton();
+        wylogujOb = new javax.swing.JButton();
+        wybierzP = new javax.swing.JButton();
         Uczniowie = new javax.swing.JPanel();
         KlasaLabel = new javax.swing.JLabel();
         wybierzKlaseUcz = new javax.swing.JComboBox<String>();
@@ -295,56 +414,8 @@ public class Nauczyciel extends javax.swing.JFrame {
         nrLegitymacji = new javax.swing.JTextField();
         wylogujUcz = new javax.swing.JButton();
         alertU = new javax.swing.JLabel();
-        wybierzOddzialUcz = new javax.swing.JComboBox();
-        Uwagi = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        wybierzKlaseU = new javax.swing.JComboBox<String>();
-        jLabel4 = new javax.swing.JLabel();
-        trescUwagi = new javax.swing.JTextField();
-        dodajUwage = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        imieUwagi = new javax.swing.JTextField();
-        nazwiskoUwagitxt = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel12 = new javax.swing.JLabel();
-        wybierzKlaseU2 = new javax.swing.JComboBox<String>();
-        wyborUcznia = new javax.swing.JComboBox<String>();
-        wyswietlUwagi = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TableUwagi = new javax.swing.JTable();
-        jLabel15 = new javax.swing.JLabel();
-        typ_uwagiComBox = new javax.swing.JComboBox();
-        jLabel22 = new javax.swing.JLabel();
-        dataWpistxt = new javax.swing.JTextField();
-        wylogujUw = new javax.swing.JButton();
-        wybierzOddzialUw1 = new javax.swing.JComboBox();
-        wybierzOddzialUw2 = new javax.swing.JComboBox();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        wybierzKlaseOb = new javax.swing.JComboBox<String>();
-        jLabel16 = new javax.swing.JLabel();
-        imieObtxt = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        nazwiskoObtxt = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        dataObe = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
-        wybierzPrzedmiot1 = new javax.swing.JComboBox<String>();
-        typObtext = new javax.swing.JComboBox();
-        dodajObecnoscbtn = new javax.swing.JButton();
-        jSeparator = new javax.swing.JSeparator();
-        jLabel25 = new javax.swing.JLabel();
-        wybierzKlaseOb2 = new javax.swing.JComboBox<String>();
-        wyborUcznia1 = new javax.swing.JComboBox<String>();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        TableNObec = new javax.swing.JTable();
-        wyswietlNieobec = new javax.swing.JButton();
-        wylogujOb = new javax.swing.JButton();
-        wybierzP = new javax.swing.JButton();
-        wybierzOddzialOb = new javax.swing.JComboBox();
-        wybierzOddzialOb1 = new javax.swing.JComboBox();
+        jLabel13 = new javax.swing.JLabel();
+        idUtxt = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -365,35 +436,35 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         jLabel2.setText("Przedmiot");
 
-        wybierzPrzedmiot.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Matematyka", "Język polski", "Biologia", "Geografia", "Fizyka", "Historia", "Wychowanie fizyczne", "Język angielski", "Jezyk niemiecki" }));
-        wybierzPrzedmiot.addActionListener(new java.awt.event.ActionListener() {
+        wybierzPrzedmiotOc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Matematyka", "Język polski", "Biologia", "Geografia", "Fizyka", "Historia", "Wychowanie fizyczne", "Język angielski", "Jezyk niemiecki" }));
+        wybierzPrzedmiotOc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wybierzPrzedmiotActionPerformed(evt);
+                wybierzPrzedmiotOcActionPerformed(evt);
             }
         });
 
         wybierz.setText("Wybierz");
 
-        daneOceny.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", " ", " " }));
+        wyborUcznia_Oc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", " ", " " }));
 
         wyswietl.setText("Wyświetl");
 
         ocenyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Data", "Ocena", "Opis"
+                "Data", "Ocena", "Opis", "Wystawił"
             }
         ));
         jScrollPane1.setViewportView(ocenyTable);
@@ -431,8 +502,6 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         SredniaOcenLabel.setText("Średnia ocen: ");
 
-        wybierzOddzialOc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout OcenyLayout = new javax.swing.GroupLayout(Oceny);
         Oceny.setLayout(OcenyLayout);
         OcenyLayout.setHorizontalGroup(
@@ -442,22 +511,20 @@ public class Nauczyciel extends javax.swing.JFrame {
                     .addGroup(OcenyLayout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(daneOceny, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(OcenyLayout.createSequentialGroup()
+                                .addComponent(wyborUcznia_Oc, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(wyswietl))
                             .addGroup(OcenyLayout.createSequentialGroup()
                                 .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(OcenyLayout.createSequentialGroup()
-                                        .addComponent(wybierzKlase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(wybierzOddzialOc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(wybierzPrzedmiot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(wybierzKlase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(wybierzPrzedmiotOc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(27, 27, 27)
-                                .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(wyswietl)
-                                    .addComponent(wybierz)))
+                                .addComponent(wybierz))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(OcenyLayout.createSequentialGroup()
                         .addGap(52, 52, 52)
@@ -483,7 +550,7 @@ public class Nauczyciel extends javax.swing.JFrame {
                             .addComponent(opis, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ocena, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(217, Short.MAX_VALUE))
+                        .addContainerGap(197, Short.MAX_VALUE))
                     .addGroup(OcenyLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -505,19 +572,18 @@ public class Nauczyciel extends javax.swing.JFrame {
                             .addComponent(jSeparator1)
                             .addGroup(OcenyLayout.createSequentialGroup()
                                 .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(wybierzPrzedmiot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(wybierzPrzedmiotOc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2)
                                     .addComponent(wybierz))
                                 .addGap(18, 18, 18)
                                 .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1)
-                                    .addComponent(wybierzKlase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(wybierzOddzialOc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(wybierzKlase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(OcenyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(daneOceny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(wyborUcznia_Oc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(wyswietl))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(OcenyLayout.createSequentialGroup()
@@ -607,7 +673,7 @@ public class Nauczyciel extends javax.swing.JFrame {
             .addGroup(nauczycieleLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(nauczycieleLayout.createSequentialGroup()
                         .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
@@ -635,7 +701,7 @@ public class Nauczyciel extends javax.swing.JFrame {
                                 .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nrTel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(stawka, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         nauczycieleLayout.setVerticalGroup(
             nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -662,10 +728,358 @@ public class Nauczyciel extends javax.swing.JFrame {
                     .addComponent(usunNauczyciela))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Nauczyciele", nauczyciele);
+
+        jLabel3.setText("Klasa");
+
+        wybierzKlaseU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
+
+        jLabel4.setText("Treść uwagi");
+
+        dodajUwage.setText("Dodaj uwagę");
+        dodajUwage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dodajUwageActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Imię");
+
+        jLabel6.setText("Nazwisko");
+
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel12.setText("Klasa");
+
+        wybierzKlaseU2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
+
+        wyborUcznia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", " " }));
+
+        wyswietlUwagi.setText("Wyświetl uwagi");
+
+        TableUwagi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Data wpisania", "Typ_uwagi", "Opis", "Wpisał"
+            }
+        ));
+        jScrollPane2.setViewportView(TableUwagi);
+
+        jLabel15.setText("Typ uwagi");
+
+        typ_uwagiComBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel22.setText("Data wpisania");
+
+        wylogujUw.setText("Wyloguj");
+        wylogujUw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wylogujUwActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout UwagiLayout = new javax.swing.GroupLayout(Uwagi);
+        Uwagi.setLayout(UwagiLayout);
+        UwagiLayout.setHorizontalGroup(
+            UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UwagiLayout.createSequentialGroup()
+                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(UwagiLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(trescUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(UwagiLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(67, 67, 67)
+                                .addComponent(wybierzKlaseU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(UwagiLayout.createSequentialGroup()
+                                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel22)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel4))
+                                .addGap(25, 25, 25)
+                                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dataWpistxt)
+                                    .addComponent(nazwiskoUwagitxt)
+                                    .addComponent(imieUwagi)
+                                    .addComponent(typ_uwagiComBox, 0, 135, Short.MAX_VALUE)))))
+                    .addGroup(UwagiLayout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(dodajUwage)))
+                .addGap(47, 47, 47)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(UwagiLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(18, 18, 18)
+                        .addComponent(wybierzKlaseU2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(wylogujUw))
+                    .addGroup(UwagiLayout.createSequentialGroup()
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(UwagiLayout.createSequentialGroup()
+                                .addComponent(wyborUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63)
+                                .addComponent(wyswietlUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE))
+                        .addContainerGap())))
+        );
+        UwagiLayout.setVerticalGroup(
+            UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(UwagiLayout.createSequentialGroup()
+                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(UwagiLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(wybierzKlaseU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(imieUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(nazwiskoUwagitxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(dataWpistxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(typ_uwagiComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(trescUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(dodajUwage))
+                    .addGroup(UwagiLayout.createSequentialGroup()
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(UwagiLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(wybierzKlaseU2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(wylogujUw))
+                        .addGap(27, 27, 27)
+                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(wyborUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(wyswietlUwagi))
+                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(269, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Uwagi ", Uwagi);
+
+        jLabel14.setText("Klasa");
+
+        wybierzKlaseOb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
+
+        jLabel16.setText("Imię");
+
+        jLabel20.setText("Nazwisko");
+
+        jLabel21.setText("Typ obecności");
+
+        jLabel23.setText("Data");
+
+        jLabel24.setText("Przedmiot");
+
+        wybierzPrzedmiotOb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Matematyka", "Język polski", "Biologia", "Geografia", "Fizyka", "Historia", "Wychowanie fizyczne", "Język angielski", "Jezyk niemiecki" }));
+
+        typObec.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        dodajObecnoscbtn.setText("Dodaj obecność");
+
+        jSeparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel25.setText("Klasa");
+
+        wybierzKlaseOb2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
+
+        wyborUczniaOb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", " " }));
+
+        TableNObec.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Data ", "Przedmiot"
+            }
+        ));
+        jScrollPane6.setViewportView(TableNObec);
+
+        wyswietlNieobec.setText("Wyświetl nieobecności");
+
+        wylogujOb.setText("Wyloguj");
+        wylogujOb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wylogujObActionPerformed(evt);
+            }
+        });
+
+        wybierzP.setText("Wybierz");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel23)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel24))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(wybierzPrzedmiotOb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(wybierzP))
+                                    .addComponent(wybierzKlaseOb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(dataObe, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                                        .addComponent(nazwiskoObtxt, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(imieObtxt, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel21)
+                                .addGap(18, 18, 18)
+                                .addComponent(typObec, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(dodajObecnoscbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel25)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(wybierzKlaseOb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addContainerGap())
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addGap(188, 188, 188)
+                                    .addComponent(wyswietlNieobec)
+                                    .addGap(110, 110, 110)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(wyborUczniaOb, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(280, 280, 280))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(wylogujOb))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(418, 418, 418)
+                    .addComponent(jSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(535, Short.MAX_VALUE)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel14)
+                                    .addComponent(wybierzKlaseOb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(wylogujOb))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel24)
+                            .addComponent(wybierzPrzedmiotOb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(wybierzP)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(wybierzKlaseOb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(wyborUczniaOb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(wyswietlNieobec))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(imieObtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(nazwiskoObtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23)
+                            .addComponent(dataObe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21)
+                            .addComponent(typObec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addComponent(dodajObecnoscbtn))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(278, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Obecności", jPanel2);
 
         KlasaLabel.setText("Klasa");
 
@@ -673,19 +1087,19 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         uczTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Imię", "Nazwisko", "Pesel", "Data urodzenia", "Ulica", "Miasto", "Kod poczt. ", "Nr tel. rodziców", "Nr legitymacji"
+                "id_ucznia", "Imię", "Nazwisko", "Pesel", "Data urodzenia", "Ulica", "Miasto", "Kod poczt. ", "Nr tel. rodziców", "Nr legitymacji"
             }
         ));
         jScrollPane4.setViewportView(uczTable);
@@ -736,7 +1150,7 @@ public class Nauczyciel extends javax.swing.JFrame {
             }
         });
 
-        wybierzOddzialUcz.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel13.setText("Id ucznia:");
 
         javax.swing.GroupLayout UczniowieLayout = new javax.swing.GroupLayout(Uczniowie);
         Uczniowie.setLayout(UczniowieLayout);
@@ -748,94 +1162,111 @@ public class Nauczyciel extends javax.swing.JFrame {
                     .addComponent(ImieLabel)
                     .addComponent(NazwiskoLabel)
                     .addComponent(PESELlabel)
-                    .addComponent(KlasaLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(KlasaLabel)
+                    .addComponent(jLabel13))
+                .addGap(134, 134, 134)
                 .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UczniowieLayout.createSequentialGroup()
-                        .addComponent(wybierzKlaseUcz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(wybierzOddzialUcz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(103, 103, 103)
-                        .addComponent(dodajUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(zaktualizujInfoU)
-                        .addGap(18, 18, 18)
-                        .addComponent(usunUczniabtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 256, Short.MAX_VALUE))
                     .addGroup(UczniowieLayout.createSequentialGroup()
                         .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(imieUczniatxt)
                             .addComponent(naziwskoUcznia)
-                            .addComponent(pesel, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                            .addComponent(pesel, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(idUtxt))
                         .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(UczniowieLayout.createSequentialGroup()
-                                .addGap(67, 67, 67)
                                 .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(UlicaLabel)
-                                    .addComponent(MiastoLabel)))
+                                    .addGroup(UczniowieLayout.createSequentialGroup()
+                                        .addGap(67, 67, 67)
+                                        .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(UlicaLabel)
+                                            .addComponent(MiastoLabel)))
+                                    .addGroup(UczniowieLayout.createSequentialGroup()
+                                        .addGap(34, 34, 34)
+                                        .addComponent(urodzeniaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(24, 24, 24)
+                                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dataUrodzenia)
+                                    .addComponent(ulica)
+                                    .addComponent(miasto, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(UczniowieLayout.createSequentialGroup()
+                                        .addGap(66, 66, 66)
+                                        .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel30)
+                                            .addComponent(jLabel29)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UczniowieLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(kodlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(nrTelRodzica, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(kodPoczt)
+                                    .addComponent(nrLegitymacji))
+                                .addGap(27, 27, 27))
                             .addGroup(UczniowieLayout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(urodzeniaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(24, 24, 24)
-                        .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dataUrodzenia)
-                            .addComponent(ulica)
-                            .addComponent(miasto, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(dodajUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(zaktualizujInfoU)
+                                .addGap(18, 18, 18)
+                                .addComponent(usunUczniabtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(146, 146, 146))))
+                    .addGroup(UczniowieLayout.createSequentialGroup()
                         .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(UczniowieLayout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel30)
-                                    .addComponent(jLabel29)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UczniowieLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(kodlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nrTelRodzica, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(kodPoczt)
-                            .addComponent(nrLegitymacji))
-                        .addGap(27, 27, 27))))
-            .addGroup(UczniowieLayout.createSequentialGroup()
-                .addGap(263, 263, 263)
-                .addComponent(alertU, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(wylogujUcz))
+                                .addGap(185, 185, 185)
+                                .addComponent(alertU, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(wybierzKlaseUcz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(wylogujUcz))))
             .addGroup(UczniowieLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 935, Short.MAX_VALUE)
                 .addContainerGap())
         );
         UczniowieLayout.setVerticalGroup(
             UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UczniowieLayout.createSequentialGroup()
-                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(wylogujUcz)
-                    .addComponent(alertU))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(KlasaLabel)
-                    .addComponent(wybierzKlaseUcz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dodajUcznia)
-                    .addComponent(zaktualizujInfoU)
-                    .addComponent(usunUczniabtn)
-                    .addComponent(wybierzOddzialUcz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(UczniowieLayout.createSequentialGroup()
+                        .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(wylogujUcz)
+                            .addComponent(alertU))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dodajUcznia)
+                            .addComponent(zaktualizujInfoU)
+                            .addComponent(usunUczniabtn)))
+                    .addGroup(UczniowieLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(UczniowieLayout.createSequentialGroup()
+                                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(wybierzKlaseUcz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(KlasaLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(idUtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UczniowieLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(4, 4, 4)))))
+                .addGap(8, 8, 8)
+                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(imieUczniatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(urodzeniaLabel)
+                        .addComponent(dataUrodzenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(kodlabel)
+                        .addComponent(kodPoczt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ImieLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ImieLabel)
-                    .addComponent(imieUczniatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(urodzeniaLabel)
-                    .addComponent(dataUrodzenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(kodlabel)
-                    .addComponent(kodPoczt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NazwiskoLabel)
-                    .addComponent(naziwskoUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UlicaLabel)
-                    .addComponent(ulica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel29)
-                    .addComponent(nrTelRodzica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(naziwskoUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(UlicaLabel)
+                        .addComponent(ulica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel29)
+                        .addComponent(nrTelRodzica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NazwiskoLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(UczniowieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PESELlabel)
@@ -845,386 +1276,20 @@ public class Nauczyciel extends javax.swing.JFrame {
                     .addComponent(jLabel30)
                     .addComponent(nrLegitymacji, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                 .addGap(18, 18, 18))
         );
 
         jTabbedPane1.addTab("Uczniowie", Uczniowie);
 
-        jLabel3.setText("Klasa");
-
-        wybierzKlaseU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
-
-        jLabel4.setText("Treść uwagi");
-
-        dodajUwage.setText("Dodaj uwagę");
-        dodajUwage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dodajUwageActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Imię");
-
-        jLabel6.setText("Nazwisko");
-
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel12.setText("Klasa");
-
-        wybierzKlaseU2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
-
-        wyborUcznia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", " " }));
-
-        wyswietlUwagi.setText("Wyświetl uwagi");
-
-        TableUwagi.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Data wpisania", "Typ_uwagi", "Opis"
-            }
-        ));
-        jScrollPane2.setViewportView(TableUwagi);
-
-        jLabel15.setText("Typ uwagi");
-
-        typ_uwagiComBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel22.setText("Data wpisania");
-
-        wylogujUw.setText("Wyloguj");
-        wylogujUw.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wylogujUwActionPerformed(evt);
-            }
-        });
-
-        wybierzOddzialUw1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        wybierzOddzialUw2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout UwagiLayout = new javax.swing.GroupLayout(Uwagi);
-        Uwagi.setLayout(UwagiLayout);
-        UwagiLayout.setHorizontalGroup(
-            UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(UwagiLayout.createSequentialGroup()
-                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UwagiLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(trescUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(UwagiLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(67, 67, 67)
-                                .addComponent(wybierzKlaseU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(wybierzOddzialUw1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(UwagiLayout.createSequentialGroup()
-                                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel22)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jLabel4))
-                                .addGap(25, 25, 25)
-                                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dataWpistxt)
-                                    .addComponent(nazwiskoUwagitxt)
-                                    .addComponent(imieUwagi)
-                                    .addComponent(typ_uwagiComBox, 0, 135, Short.MAX_VALUE)))))
-                    .addGroup(UwagiLayout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(dodajUwage)))
-                .addGap(47, 47, 47)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UwagiLayout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(18, 18, 18)
-                        .addComponent(wybierzKlaseU2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wybierzOddzialUw2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(wylogujUw))
-                    .addGroup(UwagiLayout.createSequentialGroup()
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(UwagiLayout.createSequentialGroup()
-                                .addComponent(wyborUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
-                                .addComponent(wyswietlUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
-                        .addContainerGap())))
-        );
-        UwagiLayout.setVerticalGroup(
-            UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(UwagiLayout.createSequentialGroup()
-                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UwagiLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(wybierzKlaseU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(wybierzOddzialUw1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(imieUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(nazwiskoUwagitxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22)
-                            .addComponent(dataWpistxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addComponent(typ_uwagiComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(trescUwagi, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(dodajUwage))
-                    .addGroup(UwagiLayout.createSequentialGroup()
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(UwagiLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel12)
-                                    .addComponent(wybierzKlaseU2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(wybierzOddzialUw2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(wylogujUw))
-                        .addGap(27, 27, 27)
-                        .addGroup(UwagiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(wyborUcznia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(wyswietlUwagi))
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Uwagi ", Uwagi);
-
-        jLabel14.setText("Klasa");
-
-        wybierzKlaseOb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
-
-        jLabel16.setText("Imię");
-
-        jLabel20.setText("Nazwisko");
-
-        jLabel21.setText("Typ obecności");
-
-        jLabel23.setText("Data");
-
-        jLabel24.setText("Przedmiot");
-
-        wybierzPrzedmiot1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Matematyka", "Język polski", "Biologia", "Geografia", "Fizyka", "Historia", "Wychowanie fizyczne", "Język angielski", "Jezyk niemiecki" }));
-
-        typObtext.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        dodajObecnoscbtn.setText("Dodaj obecność");
-
-        jSeparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel25.setText("Klasa");
-
-        wybierzKlaseOb2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
-
-        wyborUcznia1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", "Imię i nazwisko", " " }));
-
-        TableNObec.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Data ", "Przedmiot"
-            }
-        ));
-        jScrollPane6.setViewportView(TableNObec);
-
-        wyswietlNieobec.setText("Wyświetl nieobecności");
-
-        wylogujOb.setText("Wyloguj");
-        wylogujOb.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wylogujObActionPerformed(evt);
-            }
-        });
-
-        wybierzP.setText("Wybierz");
-
-        wybierzOddzialOb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        wybierzOddzialOb1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel23)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jLabel24))
-                                .addGap(30, 30, 30)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(wybierzPrzedmiot1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(wybierzP))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(wybierzKlaseOb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(wybierzOddzialOb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(dataObe, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                                        .addComponent(nazwiskoObtxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(imieObtxt, javax.swing.GroupLayout.Alignment.LEADING))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel21)
-                                .addGap(18, 18, 18)
-                                .addComponent(typObtext, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(dodajObecnoscbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel25)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(wybierzKlaseOb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(wybierzOddzialOb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap())
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addGap(188, 188, 188)
-                                    .addComponent(wyswietlNieobec)
-                                    .addGap(110, 110, 110)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(wyborUcznia1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(280, 280, 280))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(wylogujOb))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(418, 418, 418)
-                    .addComponent(jSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(555, Short.MAX_VALUE)))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel14)
-                                    .addComponent(wybierzKlaseOb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(wybierzOddzialOb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(wylogujOb))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel24)
-                            .addComponent(wybierzPrzedmiot1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(wybierzP)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(wybierzKlaseOb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(wybierzOddzialOb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel25))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(wyborUcznia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(wyswietlNieobec))))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(imieObtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(nazwiskoObtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23)
-                            .addComponent(dataObe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(typObtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addComponent(dodajObecnoscbtn))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Obecności", jPanel2);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1286,9 +1351,7 @@ public class Nauczyciel extends javax.swing.JFrame {
 
     private void usunUczniabtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunUczniabtnActionPerformed
 
-      
-       
-       
+
     }//GEN-LAST:event_usunUczniabtnActionPerformed
 
     private void wylogujOcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujOcActionPerformed
@@ -1307,9 +1370,9 @@ public class Nauczyciel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_dodajOceneActionPerformed
 
-    private void wybierzPrzedmiotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wybierzPrzedmiotActionPerformed
+    private void wybierzPrzedmiotOcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wybierzPrzedmiotOcActionPerformed
 
-    }//GEN-LAST:event_wybierzPrzedmiotActionPerformed
+    }//GEN-LAST:event_wybierzPrzedmiotOcActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1327,7 +1390,6 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JLabel UlicaLabel;
     private javax.swing.JPanel Uwagi;
     private javax.swing.JLabel alertU;
-    private javax.swing.JComboBox<String> daneOceny;
     private javax.swing.JTextField data;
     private javax.swing.JTextField dataObe;
     private javax.swing.JTextField dataUrodzenia;
@@ -1338,6 +1400,7 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JButton dodajUcznia;
     private javax.swing.JButton dodajUwage;
     private javax.swing.JTextField email;
+    private javax.swing.JTextField idUtxt;
     private javax.swing.JTextField imieNauczyciela;
     private javax.swing.JTextField imieObtxt;
     private javax.swing.JTextField imieUczniatxt;
@@ -1346,6 +1409,7 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1399,7 +1463,7 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JLabel srednia_ocenLa;
     private javax.swing.JTextField stawka;
     private javax.swing.JTextField trescUwagi;
-    private javax.swing.JComboBox typObtext;
+    private javax.swing.JComboBox typObec;
     private javax.swing.JComboBox typ_uwagiComBox;
     private javax.swing.JTable uczTable;
     private javax.swing.JTextField ulica;
@@ -1414,17 +1478,12 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> wybierzKlaseU;
     private javax.swing.JComboBox<String> wybierzKlaseU2;
     private javax.swing.JComboBox<String> wybierzKlaseUcz;
-    private javax.swing.JComboBox wybierzOddzialOb;
-    private javax.swing.JComboBox wybierzOddzialOb1;
-    private javax.swing.JComboBox wybierzOddzialOc;
-    private javax.swing.JComboBox wybierzOddzialUcz;
-    private javax.swing.JComboBox wybierzOddzialUw1;
-    private javax.swing.JComboBox wybierzOddzialUw2;
     private javax.swing.JButton wybierzP;
-    private javax.swing.JComboBox<String> wybierzPrzedmiot;
-    private javax.swing.JComboBox<String> wybierzPrzedmiot1;
+    private javax.swing.JComboBox<String> wybierzPrzedmiotOb;
+    private javax.swing.JComboBox<String> wybierzPrzedmiotOc;
     private javax.swing.JComboBox<String> wyborUcznia;
-    private javax.swing.JComboBox<String> wyborUcznia1;
+    private javax.swing.JComboBox<String> wyborUczniaOb;
+    private javax.swing.JComboBox<String> wyborUcznia_Oc;
     private javax.swing.JButton wylogujNauc;
     private javax.swing.JButton wylogujOb;
     private javax.swing.JButton wylogujOc;

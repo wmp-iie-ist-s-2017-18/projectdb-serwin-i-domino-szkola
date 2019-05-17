@@ -14,17 +14,16 @@ import org.hibernate.Session;
  *
  * @author monika
  */
-public class UwagiQuery {
-    
-Session session = null;
+public class PrzedmiotyQuery {
+    Session session = null;
     Query query = null;
     Criteria criteria = null;
     
-     public List <Uwagi> uwagiSelectAll(){
+      public List <Przedmioty> PrzedmiotySelectAll(){
         session = HibernateUtil.getSessionFactory().openSession();
-        criteria = session.createCriteria(Uwagi.class);
-        List <Uwagi> uwag = criteria.list();
+        criteria = session.createCriteria(Przedmioty.class);
+        List <Przedmioty> przedmioty = criteria.list();
         session.close();
-        return uwag;
-    }
+        return przedmioty;
+    } 
 }

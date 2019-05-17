@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 2019-05-10 10:26:19 by Hibernate Tools 4.3.1 -->
+<!-- Generated 2019-05-17 12:34:38 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="hibernate.Uwagi" table="uwagi" catalog="szkola" optimistic-lock="version">
         <id name="idUwagi" type="int">
@@ -20,8 +20,8 @@
         <property name="dataWpisania" type="date">
             <column name="data_wpisania" length="10" not-null="true" />
         </property>
-        <property name="typUwagi" type="boolean">
-            <column name="typ_uwagi" not-null="true" />
+        <property name="typUwagi" type="string">
+            <column name="typ_uwagi" length="20" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

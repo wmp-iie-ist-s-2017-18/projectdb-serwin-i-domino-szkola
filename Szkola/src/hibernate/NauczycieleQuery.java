@@ -16,8 +16,8 @@ import org.hibernate.Transaction;
  * @author monika
  */
 public class NauczycieleQuery {
-
-    Session session = null;
+    
+ Session session = null;
     Query query = null;
     Criteria criteria = null;
 
@@ -44,14 +44,7 @@ public class NauczycieleQuery {
         return naucz;
     }
     
-    public void nauczycieleAdd(Nauczyciele n){
-        session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        session.save(n);
-        t.commit();
-        session.close();
-        
-    }
+    
  
     public List <Nauczyciele> nauczycieleSelectAll(){
         session = HibernateUtil.getSessionFactory().openSession();
@@ -61,4 +54,3 @@ public class NauczycieleQuery {
         return nauczyciele;
     }
 }
-

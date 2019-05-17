@@ -2,14 +2,14 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="szkola"/>
-  <table-filter match-name="klasa"/>
-  <table-filter match-name="przedmioty"/>
-  <table-filter match-name="nauczyciele_przedmioty"/>
-  <table-filter match-name="oceny"/>
-  <table-filter match-name="obecnosc"/>
-  <table-filter match-name="uczniowie"/>
   <table-filter match-name="uczniowie_przedmioty"/>
-  <table-filter match-name="nauczyciele"/>
-  <table-filter match-name="klasa_uczniowie"/>
+  <table-filter match-name="uczniowie"/>
+  <table-filter match-name="oceny"/>
+  <table-filter match-name="klasa"/>
+  <table-filter match-name="obecnosc"/>
   <table-filter match-name="uwagi"/>
+  <table-filter match-name="klasa_uczniowie"/>
+  <table-filter match-name="nauczyciele_przedmioty"/>
+  <table-filter match-name="nauczyciele"/>
+  <table-filter match-name="przedmioty"/>
 </hibernate-reverse-engineering>

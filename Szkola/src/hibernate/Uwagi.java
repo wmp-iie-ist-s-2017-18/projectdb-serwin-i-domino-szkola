@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-05-10 10:26:17 by Hibernate Tools 4.3.1
+// Generated 2019-05-17 12:34:37 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,12 +15,12 @@ public class Uwagi  implements java.io.Serializable {
      private Uczniowie uczniowie;
      private String opis;
      private Date dataWpisania;
-     private boolean typUwagi;
+     private String typUwagi;
 
     public Uwagi() {
     }
 
-    public Uwagi(int idUwagi, Nauczyciele nauczyciele, Uczniowie uczniowie, String opis, Date dataWpisania, boolean typUwagi) {
+    public Uwagi(int idUwagi, Nauczyciele nauczyciele, Uczniowie uczniowie, String opis, Date dataWpisania, String typUwagi) {
        this.idUwagi = idUwagi;
        this.nauczyciele = nauczyciele;
        this.uczniowie = uczniowie;
@@ -64,11 +64,11 @@ public class Uwagi  implements java.io.Serializable {
     public void setDataWpisania(Date dataWpisania) {
         this.dataWpisania = dataWpisania;
     }
-    public boolean isTypUwagi() {
+    public String getTypUwagi() {
         return this.typUwagi;
     }
     
-    public void setTypUwagi(boolean typUwagi) {
+    public void setTypUwagi(String typUwagi) {
         this.typUwagi = typUwagi;
     }
 

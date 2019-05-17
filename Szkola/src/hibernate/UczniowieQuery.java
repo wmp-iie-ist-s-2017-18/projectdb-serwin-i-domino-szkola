@@ -9,15 +9,14 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
  * @author monika
  */
 public class UczniowieQuery {
-
-    Session session = null;
+    
+Session session = null;
     Query queryUcz = null;
      Criteria criteria = null;   
 
