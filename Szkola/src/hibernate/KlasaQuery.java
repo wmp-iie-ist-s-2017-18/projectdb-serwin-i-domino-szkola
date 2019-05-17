@@ -15,15 +15,15 @@ import org.hibernate.Session;
  * @author monika
  */
 public class KlasaQuery {
-    
-     Session session = null;
+
+    Session session = null;
     Query query = null;
     Criteria criteria = null;
 
-        public List <Klasa> KlasaSelectAll(){
+    public List<Klasa> KlasaSelectAll() {
         session = HibernateUtil.getSessionFactory().openSession();
         criteria = session.createCriteria(Klasa.class);
-        List <Klasa> klasy = criteria.list();
+        List<Klasa> klasy = criteria.list();
         session.close();
         return klasy;
     }

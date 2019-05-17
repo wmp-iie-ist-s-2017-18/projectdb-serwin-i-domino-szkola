@@ -15,6 +15,7 @@ import org.hibernate.Session;
  * @author monika
  */
 public class PrzedmiotyQuery {
+    
 Session session = null;
     Query query = null;
     Criteria criteria = null;

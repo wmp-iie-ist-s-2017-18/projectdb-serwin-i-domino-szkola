@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-05-17 12:34:37 by Hibernate Tools 4.3.1
+// Generated 2019-05-17 14:24:19 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,13 +13,13 @@ public class Obecnosc  implements java.io.Serializable {
      private int idObecnosc;
      private Nauczyciele nauczyciele;
      private Uczniowie uczniowie;
-     private boolean typObecnosci;
+     private String typObecnosci;
      private Date dataWpisania;
 
     public Obecnosc() {
     }
 
-    public Obecnosc(int idObecnosc, Nauczyciele nauczyciele, Uczniowie uczniowie, boolean typObecnosci, Date dataWpisania) {
+    public Obecnosc(int idObecnosc, Nauczyciele nauczyciele, Uczniowie uczniowie, String typObecnosci, Date dataWpisania) {
        this.idObecnosc = idObecnosc;
        this.nauczyciele = nauczyciele;
        this.uczniowie = uczniowie;
@@ -48,11 +48,11 @@ public class Obecnosc  implements java.io.Serializable {
     public void setUczniowie(Uczniowie uczniowie) {
         this.uczniowie = uczniowie;
     }
-    public boolean isTypObecnosci() {
+    public String getTypObecnosci() {
         return this.typObecnosci;
     }
     
-    public void setTypObecnosci(boolean typObecnosci) {
+    public void setTypObecnosci(String typObecnosci) {
         this.typObecnosci = typObecnosci;
     }
     public Date getDataWpisania() {

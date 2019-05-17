@@ -16,7 +16,7 @@ import org.hibernate.Session;
  */
 public class OcenyQuery {
     
- Session session = null;
+Session session = null;
     Query queryOc = null;
      Criteria criteria = null; 
      

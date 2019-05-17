@@ -7,6 +7,7 @@ package projekt;
 
 import hibernate.HibernateUtil;
 import hibernate.Klasa;
+import hibernate.KlasaQuery;
 import hibernate.Nauczyciele;
 import hibernate.NauczycieleQuery;
 import hibernate.Oceny;
@@ -17,7 +18,7 @@ import hibernate.Uczniowie;
 import hibernate.UczniowieQuery;
 import hibernate.Uwagi;
 import hibernate.Obecnosc;
-import hibernate.ObecnosciQuery;
+import hibernate.ObecnoscQuery;
 import hibernate.UwagiQuery;
 import java.util.List;
 import java.util.Vector;
@@ -38,13 +39,14 @@ public class Nauczyciel extends javax.swing.JFrame {
     private List<Uczniowie> ucz;
     private OcenyQuery queryOc;
     private List<Klasa> klasy;
+    private KlasaQuery queryK;
     private List<Oceny> ocenki;
     private UwagiQuery queryUw;
     private List<Uwagi> uwaga;
     private PrzedmiotyQuery queryP;
     private List<Przedmioty> przedmiot;
     private List <Obecnosc> obecnosc;
-    private ObecnosciQuery queryOb;
+    private ObecnoscQuery queryOb;
 
     public Nauczyciel() {
         initComponents();
@@ -56,9 +58,32 @@ public class Nauczyciel extends javax.swing.JFrame {
         UczniowieCombobox();
         PrzedmiotyComboBox();
         TypUwagiComboBox();
+        TypObecnoscComboBox();
 
     }
     
+    public void TypObecnoscComboBox(){
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            Criteria criteria = session.createCriteria(Obecnosc.class);
+            obecnosc  = criteria.list();
+
+            
+            typObec.removeAllItems();
+            
+
+            for (Obecnosc o : obecnosc) {
+             
+               
+              typObec.addItem(o.getTypObecnosci());
+            }
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Bład połączenia z bazą!");
+        }
+    }
   
     public void TypUwagiComboBox(){
          Session session = null;
@@ -182,8 +207,9 @@ public class Nauczyciel extends javax.swing.JFrame {
                 model.addRow(row);
             }
 
-            for (Nauczyciele n : nauczy) {
-                row[3] = n.getImie() + " " + n.getNazwisko();
+           for (Nauczyciele n : nauczy) {
+                row[3] = n.getNazwisko() + " " + n.getImie();
+
                 model.addRow(row);
             }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 2019-05-17 12:34:38 by Hibernate Tools 4.3.1 -->
+<!-- Generated 2019-05-17 14:24:19 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="hibernate.Obecnosc" table="obecnosc" catalog="szkola" optimistic-lock="version">
         <id name="idObecnosc" type="int">
@@ -14,8 +14,8 @@
         <many-to-one name="uczniowie" class="hibernate.Uczniowie" fetch="select">
             <column name="id_ucznia" not-null="true" />
         </many-to-one>
-        <property name="typObecnosci" type="boolean">
-            <column name="typ_obecnosci" not-null="true" />
+        <property name="typObecnosci" type="string">
+            <column name="typ_obecnosci" length="20" not-null="true" />
         </property>
         <property name="dataWpisania" type="date">
             <column name="data_wpisania" length="10" not-null="true" />

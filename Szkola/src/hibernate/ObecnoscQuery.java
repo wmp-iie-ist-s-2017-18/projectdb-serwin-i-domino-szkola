@@ -15,7 +15,7 @@ import org.hibernate.Session;
  * @author monika
  */
 public class ObecnoscQuery {
-     Session session = null;
+      Session session = null;
     Query query = null;
     Criteria criteria = null;
     
@@ -28,3 +28,4 @@ public class ObecnoscQuery {
     } 
 
 }
+

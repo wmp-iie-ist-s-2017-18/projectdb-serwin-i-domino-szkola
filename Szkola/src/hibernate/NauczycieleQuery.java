@@ -15,8 +15,8 @@ import org.hibernate.Session;
  * @author monika
  */
 public class NauczycieleQuery {
-    
- Session session = null;
+
+    Session session = null;
     Query query = null;
     Criteria criteria = null;
 
@@ -32,8 +32,8 @@ public class NauczycieleQuery {
         }
         return false;
     }
-    
-    public Nauczyciele selectByIDandPassword(int id, String password){
+
+    public Nauczyciele selectByIDandPassword(int id, String password) {
         Nauczyciele naucz = null;
         session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from Nauczyciele where id = '" + id + "' and haslo = '" + password + "'";
@@ -42,13 +42,11 @@ public class NauczycieleQuery {
         session.close();
         return naucz;
     }
-    
-    
- 
-    public List <Nauczyciele> nauczycieleSelectAll(){
+
+    public List<Nauczyciele> nauczycieleSelectAll() {
         session = HibernateUtil.getSessionFactory().openSession();
         criteria = session.createCriteria(Nauczyciele.class);
-        List <Nauczyciele> nauczyciele = criteria.list();
+        List<Nauczyciele> nauczyciele = criteria.list();
         session.close();
         return nauczyciele;
     }
