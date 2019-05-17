@@ -71,7 +71,7 @@ CREATE TABLE UWAGI
   id_uwagi INT NOT NULL,
   opis VARCHAR(100) NOT NULL,
   data_wpisania DATE NOT NULL,
-  typ_uwagi BOOLEAN NOT NULL,
+  typ_uwagi VARCHAR(20) NOT NULL,
   id_nauczyciela INT NOT NULL,
   id_ucznia INT NOT NULL,
   PRIMARY KEY (id_uwagi),
@@ -82,7 +82,7 @@ CREATE TABLE UWAGI
 CREATE TABLE OBECNOSC
 (
   id_obecnosc INT NOT NULL,
-  typ_obecnosci BOOLEAN NOT NULL,
+  typ_obecnosci VARCHAR(20) NOT NULL,
   data_wpisania DATE NOT NULL,
   id_nauczyciela INT NOT NULL,
   id_ucznia INT NOT NULL,
