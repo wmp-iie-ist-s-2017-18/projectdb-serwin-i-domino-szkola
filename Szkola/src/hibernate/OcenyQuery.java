@@ -5,10 +5,12 @@
  */
 package hibernate;
 
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -27,4 +29,17 @@ Session session = null;
         session.close();
         return ocenki;
     } 
+       
+        public void usunOcene(int id){
+        session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("from Oceny where id=" + id);
+        Oceny o = (Oceny) query.uniqueResult();
+        Transaction t = session.beginTransaction();
+        session.delete(o);
+        t.commit();
+        session.close();
+        
+    }
+        
 }
+
