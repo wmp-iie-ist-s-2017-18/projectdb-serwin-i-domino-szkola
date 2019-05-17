@@ -14,16 +14,17 @@ import org.hibernate.Session;
  *
  * @author monika
  */
-public class PrzedmiotyQuery {
-Session session = null;
+public class ObecnoscQuery {
+     Session session = null;
     Query query = null;
     Criteria criteria = null;
     
-      public List <Przedmioty> PrzedmiotySelectAll(){
+   public List <Obecnosc> obecnoscSelectAll(){
         session = HibernateUtil.getSessionFactory().openSession();
-        criteria = session.createCriteria(Przedmioty.class);
-        List <Przedmioty> przedmioty = criteria.list();
+        criteria = session.createCriteria(Obecnosc.class);
+        List <Obecnosc> obecny = criteria.list();
         session.close();
-        return przedmioty;
+        return obecny;
     } 
+
 }

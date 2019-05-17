@@ -14,16 +14,17 @@ import org.hibernate.Session;
  *
  * @author monika
  */
-public class ObecnosciQuery {
-    Session session = null;
+public class KlasaQuery {
+    
+     Session session = null;
     Query query = null;
     Criteria criteria = null;
-    
-   public List <Obecnosc> obecnoscSelectAll(){
+
+        public List <Klasa> KlasaSelectAll(){
         session = HibernateUtil.getSessionFactory().openSession();
-        criteria = session.createCriteria(Obecnosc.class);
-        List <Obecnosc> obecny = criteria.list();
+        criteria = session.createCriteria(Klasa.class);
+        List <Klasa> klasy = criteria.list();
         session.close();
-        return obecny;
-    } 
+        return klasy;
+    }
 }
