@@ -52,14 +52,24 @@ public class NauczycieleQuery {
         return nauczyciele;
     }
     
-    public void usunNauczyciela(int id){
+    
+      public void NauczycieleAdd(Nauczyciele n){
         session = HibernateUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("from Nauczyciele where id=" + id);
-        Nauczyciele n = (Nauczyciele) query.uniqueResult();
         Transaction t = session.beginTransaction();
-        session.delete(n);
+        session.save(n);
         t.commit();
         session.close();
-        
     }
+      
+      public void zmienDaneNaucz (int id){
+          session = HibernateUtil.getSessionFactory().openSession();
+        Nauczyciele n = null;
+        query = session.createQuery("from Nauczyciele where id=" + id);
+        n = (Nauczyciele) query.uniqueResult();
+        Transaction t = session.beginTransaction();
+        session.save(n);
+        t.commit();
+        session.close();
+          
+      }
 }
