@@ -53,5 +53,13 @@ Session session = null;
     } 
     
      
-
+public Uczniowie SelectById(int id){
+          Uczniowie u = null;
+          session = HibernateUtil.getSessionFactory().openSession();
+          String hql = "from Uczniowie where id = " +id;
+          queryUcz = session.createQuery(hql);
+          u = (Uczniowie)queryUcz.uniqueResult();
+          session.close();
+          return u;
+      }
 }

@@ -67,10 +67,6 @@ public class Nauczyciel extends javax.swing.JFrame {
         TypObecnoscComboBox();
 
     }
-    
- 
-  
-  
 
     public void TypObecnoscComboBox() {
         Session session = null;
@@ -325,6 +321,20 @@ public class Nauczyciel extends javax.swing.JFrame {
         uczTable.setModel(model);
     }
 
+    private void wyczyscform() {
+        idNauczDodaj.setText(null);
+        imieNauczyciela.setText(null);
+        naziwskoNauczyciela.setText(null);
+        email.setText(null);
+        nrTel.setText(null);
+        stawka.setText(null);
+        hasloDodaj.setText(null);
+    }
+
+    private void wyczyscUsunform() {
+        UsunIDNaucz.setText(null);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -465,9 +475,9 @@ public class Nauczyciel extends javax.swing.JFrame {
         idNauczDodaj = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
         UsunIDNaucz = new javax.swing.JTextField();
-        wyczyscNabtn = new javax.swing.JButton();
         jLabel32 = new javax.swing.JLabel();
         hasloDodaj = new javax.swing.JPasswordField();
+        jLabelErrorNauczyciel = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -733,9 +743,8 @@ public class Nauczyciel extends javax.swing.JFrame {
                                 .addGap(27, 27, 27)
                                 .addComponent(wybierzP))
                             .addComponent(wybierzKlaseOb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(nazwiskoObtxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                                .addComponent(imieObtxt, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(nazwiskoObtxt)
+                            .addComponent(imieObtxt)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(dateChooserOb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(25, 25, 25))))
@@ -1353,14 +1362,9 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         jLabel31.setText("Usuń po ID:");
 
-        wyczyscNabtn.setText("Wyczyść formularz");
-        wyczyscNabtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wyczyscNabtnActionPerformed(evt);
-            }
-        });
-
         jLabel32.setText("Hasło:");
+
+        jLabelErrorNauczyciel.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout nauczycieleLayout = new javax.swing.GroupLayout(nauczyciele);
         nauczyciele.setLayout(nauczycieleLayout);
@@ -1397,84 +1401,78 @@ public class Nauczyciel extends javax.swing.JFrame {
                                 .addComponent(jLabel8)))
                         .addGap(27, 27, 27)
                         .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(nauczycieleLayout.createSequentialGroup()
-                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(dodajNauczyciela, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(nauczycieleLayout.createSequentialGroup()
                                 .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nrTel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(stawka, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(nauczycieleLayout.createSequentialGroup()
-                                        .addGap(54, 54, 54)
-                                        .addComponent(jLabel32)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(hasloDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(nauczycieleLayout.createSequentialGroup()
-                                        .addGap(60, 60, 60)
-                                        .addComponent(zaktualizujInfoN, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGap(54, 54, 54)
+                                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(zaktualizujInfoN, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                    .addComponent(dodajNauczyciela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap())
                     .addGroup(nauczycieleLayout.createSequentialGroup()
-                        .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(nauczycieleLayout.createSequentialGroup()
-                                .addGap(180, 180, 180)
-                                .addComponent(wyczyscNabtn, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
                         .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(UsunIDNaucz, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel31)
-                            .addComponent(usunNauczyciela, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                            .addGroup(nauczycieleLayout.createSequentialGroup()
+                                .addComponent(usunNauczyciela, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                .addContainerGap())
+                            .addGroup(nauczycieleLayout.createSequentialGroup()
+                                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(UsunIDNaucz, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel31))
+                                .addGap(0, 0, Short.MAX_VALUE))))))
+            .addGroup(nauczycieleLayout.createSequentialGroup()
+                .addGap(205, 205, 205)
+                .addComponent(jLabel32)
+                .addGap(36, 36, 36)
+                .addComponent(hasloDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabelErrorNauczyciel, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         nauczycieleLayout.setVerticalGroup(
             nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nauczycieleLayout.createSequentialGroup()
                 .addComponent(wylogujNauc)
+                .addGap(16, 16, 16)
+                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel28)
+                    .addComponent(idNauczDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(imieNauczyciela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel7)
+                    .addComponent(nrTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dodajNauczyciela))
+                .addGap(13, 13, 13)
                 .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(naziwskoNauczyciela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)
+                        .addComponent(stawka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(zaktualizujInfoN))
+                    .addComponent(jLabel18))
+                .addGap(21, 21, 21)
+                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hasloDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel32)
+                    .addComponent(jLabelErrorNauczyciel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(nauczycieleLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dodajNauczyciela)
-                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel28)
-                            .addComponent(idNauczDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(UsunIDNaucz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(zaktualizujInfoN)
-                            .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(imieNauczyciela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel17)
-                                .addComponent(jLabel7)
-                                .addComponent(nrTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(nauczycieleLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(naziwskoNauczyciela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel8)
-                                        .addComponent(stawka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel18)))
-                            .addGroup(nauczycieleLayout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel32)
-                                    .addComponent(hasloDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel31)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(nauczycieleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(nauczycieleLayout.createSequentialGroup()
-                                .addComponent(UsunIDNaucz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(usunNauczyciela))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(nauczycieleLayout.createSequentialGroup()
-                        .addGap(143, 143, 143)
-                        .addComponent(wyczyscNabtn)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(usunNauczyciela)
+                        .addGap(92, 92, 92))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Nauczyciele", nauczyciele);
@@ -1504,19 +1502,17 @@ public class Nauczyciel extends javax.swing.JFrame {
     }//GEN-LAST:event_dodajUczniaActionPerformed
 
     private void dodajUwageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajUwageActionPerformed
-       try{ 
-        SimpleDateFormat dFormat = new SimpleDateFormat ("yyyy-MM-dd");
-       String date = dFormat.format(DateChooserUW.getDateFormat());
-        DefaultTableModel model = (DefaultTableModel)TableUwagi.getModel();
-        model.addRow(new Object[]{date});
-       }
-       catch(Exception ex){
-            System.out.println("Bład połączenia z bazą!");
-       }
 
-       
-               
-       
+        try {
+            SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String date = dFormat.format(DateChooserUW.getDateFormat());
+            Date data = new Date(date);
+
+        } catch (Exception ex) {
+            System.out.println("Bład połączenia z bazą!");
+        }
+
+
     }//GEN-LAST:event_dodajUwageActionPerformed
 
     private void wylogujNaucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujNaucActionPerformed
@@ -1552,7 +1548,18 @@ public class Nauczyciel extends javax.swing.JFrame {
     }//GEN-LAST:event_wylogujUwActionPerformed
 
     private void usunNauczycielaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunNauczycielaActionPerformed
-        // TODO add your handling code here:
+        jLabelErrorNauczyciel.setText("");
+        if (evt.getSource().equals(usunNauczyciela)) {
+            try {
+                query.usunNaucz(Integer.parseInt(UsunIDNaucz.getText()));
+                wyczyscUsunform();
+            } catch (Exception e) {
+                jLabelErrorNauczyciel.setText("Błąd!");
+            }
+
+        }
+
+        NauczTableSelectAll();
     }//GEN-LAST:event_usunNauczycielaActionPerformed
 
     private void usunUczniabtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunUczniabtnActionPerformed
@@ -1569,27 +1576,26 @@ public class Nauczyciel extends javax.swing.JFrame {
     }//GEN-LAST:event_wylogujOcActionPerformed
 
     private void usunOceneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunOceneActionPerformed
-        
+
     }//GEN-LAST:event_usunOceneActionPerformed
 
     private void dodajOceneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajOceneActionPerformed
-       int id_oceny;
-      // String dataOc;
-       int wartoscOc;
-       String opis;
-       
-       if(evt.getSource().equals(dodajOcene)){
-           id_oceny = Integer.parseInt(idOcDodajtxt.getText());
-          // dataOc =datawpisania.toString();
-           wartoscOc = Integer.parseInt(wartoscOcentxt.getText());
-           opis = opisOctxt.getText();
-           
-           
-       }
-       
+        int id_oceny;
+        // String dataOc;
+        int wartoscOc;
+        String opis;
+
+        if (evt.getSource().equals(dodajOcene)) {
+            id_oceny = Integer.parseInt(idOcDodajtxt.getText());
+            // dataOc =datawpisania.toString();
+            wartoscOc = Integer.parseInt(wartoscOcentxt.getText());
+            opis = opisOctxt.getText();
+
+        }
+
     }//GEN-LAST:event_dodajOceneActionPerformed
-   
-    
+
+
     private void wybierzPrzedmiotOcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wybierzPrzedmiotOcActionPerformed
 
     }//GEN-LAST:event_wybierzPrzedmiotOcActionPerformed
@@ -1599,37 +1605,35 @@ public class Nauczyciel extends javax.swing.JFrame {
     }//GEN-LAST:event_clearUsunbtnActionPerformed
 
     private void dodajNauczycielaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajNauczycielaActionPerformed
-       
-            int idNaucz;
-            String imie, nazwisko, mail, nr_telefonu, wynagrodzenie, haslo;
-            
-            if(evt.getSource().equals(dodajNauczyciela)){
-                
-                idNaucz = Integer.parseInt(idNauczDodaj.getText());
-                imie = imieNauczyciela.getText();
-                nazwisko = naziwskoNauczyciela.getText();
-                mail = email.getText();
-                nr_telefonu = nrTel.getText();
-                wynagrodzenie = stawka.getText();
-                haslo = hasloDodaj.getText();
-                
-                Nauczyciele n = new Nauczyciele(idNaucz, imie, nazwisko, mail, nr_telefonu, wynagrodzenie, haslo);
-                
-                query = new NauczycieleQuery();
-                try{
-                    query.NauczycieleAdd(n);
-                }catch(Exception e){
-                    
-                }
-                
-                NauczTableSelectAll();
-                
-                
-            
-            
-            }        
-        
-           
+        jLabelErrorNauczyciel.setText("");
+        int idNaucz;
+        String imie, nazwisko, mail, nr_telefonu, wynagrodzenie, haslo;
+
+        if (evt.getSource().equals(dodajNauczyciela)) {
+
+            idNaucz = Integer.parseInt(idNauczDodaj.getText());
+            imie = imieNauczyciela.getText();
+            nazwisko = naziwskoNauczyciela.getText();
+            mail = email.getText();
+            nr_telefonu = nrTel.getText();
+            wynagrodzenie = stawka.getText();
+            haslo = hasloDodaj.getText();
+
+            Nauczyciele n = new Nauczyciele(idNaucz, imie, nazwisko, mail, nr_telefonu, wynagrodzenie, haslo);
+
+            query = new NauczycieleQuery();
+            try {
+                query.NauczycieleAdd(n);
+                wyczyscform();
+            } catch (Exception e) {
+                jLabelErrorNauczyciel.setText("Błąd!");
+            }
+
+            NauczTableSelectAll();
+
+        }
+
+
     }//GEN-LAST:event_dodajNauczycielaActionPerformed
 
     private void idNauczDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idNauczDodajActionPerformed
@@ -1642,18 +1646,8 @@ public class Nauczyciel extends javax.swing.JFrame {
         opisOctxt.setText(null);
     }//GEN-LAST:event_wyczyscBtnActionPerformed
 
-    private void wyczyscNabtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyczyscNabtnActionPerformed
-        idNauczDodaj.setText(null);
-        imieNauczyciela.setText(null);
-        naziwskoNauczyciela.setText(null);
-        email.setText(null);
-        nrTel.setText(null);
-        stawka.setText(null);
-        hasloDodaj.setText(null);
-    }//GEN-LAST:event_wyczyscNabtnActionPerformed
-
     private void zaktualizujInfoNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaktualizujInfoNActionPerformed
-       
+
     }//GEN-LAST:event_zaktualizujInfoNActionPerformed
 
 
@@ -1725,6 +1719,7 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelErrorNauczyciel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1781,7 +1776,6 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> wyborUczniaOb;
     private javax.swing.JComboBox<String> wyborUcznia_Oc;
     private javax.swing.JButton wyczyscBtn;
-    private javax.swing.JButton wyczyscNabtn;
     private javax.swing.JButton wylogujNauc;
     private javax.swing.JButton wylogujOb;
     private javax.swing.JButton wylogujOc;
