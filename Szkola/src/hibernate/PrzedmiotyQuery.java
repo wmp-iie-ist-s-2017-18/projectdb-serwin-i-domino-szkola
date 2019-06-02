@@ -26,5 +26,17 @@ Session session = null;
         List <Przedmioty> przedmioty = criteria.list();
         session.close();
         return przedmioty;
+        
+        
     } 
+      
+       public Przedmioty PrzedmiotySelectById(int id){
+          Przedmioty p = null;
+          session = HibernateUtil.getSessionFactory().openSession();
+          String hql = "from Przedmioty where id = " +id;
+          query = session.createQuery(hql);
+          p = (Przedmioty)query.uniqueResult();
+          session.close();
+          return p;
+      }
 }

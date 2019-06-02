@@ -5,10 +5,12 @@
  */
 package hibernate;
 
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -62,4 +64,12 @@ public Uczniowie SelectById(int id){
           session.close();
           return u;
       }
+
+    public void UczniowieAdd(Uczniowie u){
+        session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+        session.save(u);
+        t.commit();
+        session.close();
+    }
 }

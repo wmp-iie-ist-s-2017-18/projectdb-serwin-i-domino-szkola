@@ -64,6 +64,12 @@ public class Uczniowie  implements java.io.Serializable {
        this.uczniowiePrzedmioties = uczniowiePrzedmioties;
        this.ocenies = ocenies;
     }
+
+    public Uczniowie(int idUcznia, String imie, String nazwisko, String PESEL, String nr_legitymacji, String date, String miasto, String ulica, String kodpocztowy, String nr_telefonu_do_rodzica, String haslo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
    
     public int getIdUcznia() {
         return this.idUcznia;
