@@ -65,11 +65,30 @@ public Uczniowie SelectById(int id){
           return u;
       }
 
-    public void UczniowieAdd(Uczniowie u){
+    public void DodajUcznia(int idUcz, String imie, String nazwisko, String PESEL, String nr_legitymacji, Date dataurodzenia,
+            String miasto, String ulica, String kod_pocztowy, String nr_telefonu, String haslo){
         session = HibernateUtil.getSessionFactory().openSession();
+        Uczniowie ucz = new Uczniowie(idUcz, imie, nazwisko, PESEL, nr_legitymacji, dataurodzenia, miasto, ulica, kod_pocztowy, nr_telefonu, haslo);
         Transaction t = session.beginTransaction();
-        session.save(u);
+        session.save(ucz);
         t.commit();
         session.close();
     }
+
+    
+    
+     public void usunUcznia(int id){
+        session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("from Uczniowie where id=" + id);
+        Uczniowie ucz = (Uczniowie) query.uniqueResult();
+        Transaction t = session.beginTransaction();
+        session.delete(ucz);
+        t.commit();
+        session.close();
+        
+        
+    }
 }
+
+
+    

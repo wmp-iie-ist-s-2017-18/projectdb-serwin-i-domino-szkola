@@ -5,12 +5,17 @@
  */
 package hibernate;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.ReturningWork;
 
 /**
  *
@@ -39,10 +44,50 @@ Session session = null;
         t.commit();
         session.close();
         
+        
     }
         
         
+          
+    public List<Oceny> OcenySelectAllOnID(int id){
+        session = HibernateUtil.getSessionFactory().openSession();
+        criteria = session.createCriteria(Oceny.class);
+        List<Oceny> oceny = criteria.list();
+        session.close();
+        int i = 0;
+        for(Oceny o : oceny){
+            if(o.getIdOceny()!= id){
+              oceny.remove(i);
+            }
+            i++;
+        }
+        return oceny;
+    }
+
+
+public double sredniaFunction(int id_ucznia, int id_przedmioty){
+        double srednia = 0.0;
+        session = HibernateUtil.getSessionFactory().openSession();
         
+        //session.doWork(new Work(){
+        ReturningWork<Double> sredniaRW = new ReturningWork<Double>() {
+            
+            @Override
+            public Double execute(Connection cnctn) throws SQLException {
+                CallableStatement funkcja = cnctn.prepareCall("{? = call srednia(?,?) }");
+                funkcja.setInt(2, id_ucznia);
+                funkcja.setInt(3, id_przedmioty);
+                funkcja.registerOutParameter(1, Types.DOUBLE);
+                funkcja.execute();
+                double sredniaOc = 0.0;
+                sredniaOc = funkcja.getDouble(1);
+                System.out.println("(Funkcaj ReturningWork) Srednia = " + sredniaOc);
+                return sredniaOc;
+            }
+         
+        };
+        srednia = session.doReturningWork(sredniaRW);
+        session.close();
+        return srednia;
+    } 
 }
-
-
