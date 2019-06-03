@@ -32,7 +32,7 @@ public class UwagiQuery {
         return uwag;
     }
      
-     public void DodajUwage(int idUwagi,String opis, Date datawpisania, String typUwagi, int idUcznia, int idNauczyciela){
+     public void DodajUwage(int idUwagi, String opis, Date datawpisania, String typUwagi, int idUcznia, int idNauczyciela){
          session = HibernateUtil.getSessionFactory().openSession();
         Uczniowie u = new UczniowieQuery().SelectById(idUcznia);
         Nauczyciele n = new NauczycieleQuery().SelectById(idNauczyciela);

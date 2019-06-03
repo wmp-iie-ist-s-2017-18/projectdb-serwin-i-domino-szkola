@@ -90,4 +90,17 @@ public double sredniaFunction(int id_ucznia, int id_przedmioty){
         session.close();
         return srednia;
     } 
+
+
+public void DodajOcene(int idOceny, Date datawpisania, String opis, int wartosc, int id_przedmiotu ,int idUcznia, int idNauczyciela){
+         session = HibernateUtil.getSessionFactory().openSession();
+        Uczniowie u = new UczniowieQuery().SelectById(idUcznia);
+        Nauczyciele n = new NauczycieleQuery().SelectById(idNauczyciela);
+        Przedmioty p = new PrzedmiotyQuery().PrzedmiotySelectById(id_przedmiotu);
+       Oceny o = new Oceny(idOceny, n, p, u, opis, datawpisania, wartosc);
+         Transaction t = session.beginTransaction();
+         session.save(o);
+         t.commit();
+         session.close();
+}
 }

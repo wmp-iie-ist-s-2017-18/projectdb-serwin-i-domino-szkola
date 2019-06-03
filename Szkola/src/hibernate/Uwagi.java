@@ -29,9 +29,9 @@ public class Uwagi  implements java.io.Serializable {
        this.typUwagi = typUwagi;
     }
 
-    public Uwagi(int idUwagi, int idNaucz, int idUcznia, String opis, Date data, String typ) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
+ 
+
    
     public int getIdUwagi() {
         return this.idUwagi;

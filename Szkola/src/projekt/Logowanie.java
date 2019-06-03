@@ -17,6 +17,15 @@ public class Logowanie extends javax.swing.JFrame {
 
     private UczniowieQuery queryUczen;
     private NauczycieleQuery queryNauczyciel;
+    public int id_nauczyciela;
+    
+    public int getId(){
+        return id_nauczyciela;
+    }
+    
+    public Logowanie(int i){
+        
+    }
     
     public Logowanie() {
         setTitle("Logowanie");
@@ -183,7 +192,8 @@ if(evt.getSource().equals(Zaloguj))  {
             }
         }
        if(NauczycielRB.isSelected()){
-           new Nauczyciel().setVisible(true);
+           new Nauczyciel(Integer.valueOf(id)).setVisible(true);
+           id_nauczyciela = Integer.valueOf(id);
            this.setVisible(false);
        }
        else{
