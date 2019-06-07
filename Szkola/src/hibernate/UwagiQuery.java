@@ -31,6 +31,16 @@ public class UwagiQuery {
         session.close();
         return uwag;
     }
+       public Uwagi selectByIdUcznia(int id){
+        Uwagi uw = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Uwagi where id_ucznia=" + id;
+        query = session.createQuery(hql);
+        uw = (Uwagi) query.uniqueResult();
+        session.close();
+        return uw;
+    }
+    
      
      public void DodajUwage(int idUwagi, String opis, Date datawpisania, String typUwagi, int idUcznia, int idNauczyciela){
          session = HibernateUtil.getSessionFactory().openSession();

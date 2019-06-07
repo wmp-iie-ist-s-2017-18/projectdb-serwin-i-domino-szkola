@@ -5,11 +5,16 @@
  */
 package hibernate;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 
 /**
  *
@@ -93,4 +98,31 @@ public class NauczycieleQuery {
           session.close();
           return n;
       }
+      
+     public void dodajNauczyciela(int idNauczyciela, String imie, String nazwisko, String email, String nrTelefonu, String stawka, String haslo){
+          Session session = HibernateUtil.getSessionFactory().openSession();
+          Transaction transaction = session.beginTransaction();
+          session.doWork(new Work() {
+
+              @Override
+              public void execute(Connection cnctn) throws SQLException {
+                  CallableStatement cs = cnctn.prepareCall("{call dodaj_nauczyciela(?,?,?,?,?,?,?)}");
+                  cs.setInt(1,idNauczyciela);
+                  cs.setString(2, imie);
+                  cs.setString(3, nazwisko);
+                  cs.setString(4, email);
+                  cs.setString(5, nrTelefonu);
+                  cs.setString(6, stawka);
+                  cs.setString(7, haslo);
+                  cs.execute();
+       
+          
+      } 
+          });
+           transaction.commit();
+           session.close();
+     }
 }
+          
+              
+      

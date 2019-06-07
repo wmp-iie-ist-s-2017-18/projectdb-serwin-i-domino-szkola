@@ -9,6 +9,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -49,23 +50,25 @@ Session session = null;
         
         
           
-    public List<Oceny> OcenySelectAllOnID(int id){
+    public ArrayList<Oceny> OcenySelectAllOnID(int id){
         session = HibernateUtil.getSessionFactory().openSession();
         criteria = session.createCriteria(Oceny.class);
-        List<Oceny> oceny = criteria.list();
+        ArrayList<Oceny> oceny = (ArrayList<Oceny>) criteria.list();
         session.close();
         int i = 0;
         for(Oceny o : oceny){
-            if(o.getIdOceny()!= id){
+            if(o.getNauczyciele().getIdNauczyciela()!= id){
               oceny.remove(i);
             }
             i++;
         }
         return oceny;
     }
+    
+      
 
 
-public double sredniaFunction(int id_ucznia, int id_przedmioty){
+public double srednia(int id_ucznia, int id_przedmioty){
         double srednia = 0.0;
         session = HibernateUtil.getSessionFactory().openSession();
         
