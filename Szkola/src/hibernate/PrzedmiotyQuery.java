@@ -33,7 +33,7 @@ Session session = null;
        public Przedmioty PrzedmiotySelectById(int id){
           Przedmioty p = null;
           session = HibernateUtil.getSessionFactory().openSession();
-          String hql = "from Przedmioty where id = " +id;
+          String hql = "from Przedmioty where id_przedmioty = " +id;
           query = session.createQuery(hql);
           p = (Przedmioty)query.uniqueResult();
           session.close();

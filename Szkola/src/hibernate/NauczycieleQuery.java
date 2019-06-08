@@ -69,7 +69,7 @@ public class NauczycieleQuery {
       public void zmienDaneNaucz (int id){
         session = HibernateUtil.getSessionFactory().openSession();
         Nauczyciele n= null;
-        query = session.createQuery("from Nauczyciele where id=" + id);
+        query = session.createQuery("from Nauczyciele where id_nauczyciela=" + id);
         n = (Nauczyciele) query.uniqueResult();
         Transaction t = session.beginTransaction();
         session.save(n);
@@ -79,7 +79,7 @@ public class NauczycieleQuery {
       
       public void usunNaucz (int id ){
           session = HibernateUtil.getSessionFactory().openSession();
-          query = session.createQuery("from Nauczyciele where id= " + id);
+          query = session.createQuery("from Nauczyciele where id_nauczyciela= " + id);
           Nauczyciele n = (Nauczyciele)query.uniqueResult();
           Transaction t = session.beginTransaction();
           session.delete(n);
@@ -92,7 +92,7 @@ public class NauczycieleQuery {
       public Nauczyciele SelectById(int id){
           Nauczyciele n = null;
           session = HibernateUtil.getSessionFactory().openSession();
-          String hql = "from Nauczyciele where id = " +id;
+          String hql = "from Nauczyciele where id_nauczyciela = " +id;
           query = session.createQuery(hql);
           n = (Nauczyciele)query.uniqueResult();
           session.close();

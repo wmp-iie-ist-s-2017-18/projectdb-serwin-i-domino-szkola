@@ -38,7 +38,7 @@ Session session = null;
        
         public void usunOcene(int id){
         session = HibernateUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("from Oceny where id=" + id);
+        Query query = session.createQuery("from Oceny where id_oceny=" + id);
         Oceny o = (Oceny) query.uniqueResult();
         Transaction t = session.beginTransaction();
         session.delete(o);
@@ -50,14 +50,14 @@ Session session = null;
         
         
           
-    public ArrayList<Oceny> OcenySelectAllOnID(int id){
+    public ArrayList<Oceny> OcenySelectAllOnID(int idUcznia){
         session = HibernateUtil.getSessionFactory().openSession();
         criteria = session.createCriteria(Oceny.class);
         ArrayList<Oceny> oceny = (ArrayList<Oceny>) criteria.list();
         session.close();
         int i = 0;
         for(Oceny o : oceny){
-            if(o.getNauczyciele().getIdNauczyciela()!= id){
+            if(o.getUczniowie().getIdUcznia()!= idUcznia){
               oceny.remove(i);
             }
             i++;

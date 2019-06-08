@@ -5,12 +5,16 @@
  */
 package hibernate;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 
 /**
  *
@@ -58,7 +62,7 @@ Session session = null;
 public Uczniowie SelectById(int id){
           Uczniowie u = null;
           session = HibernateUtil.getSessionFactory().openSession();
-          String hql = "from Uczniowie where id = " +id;
+          String hql = "from Uczniowie where id_ucznia = " +id;
           queryUcz = session.createQuery(hql);
           u = (Uczniowie)queryUcz.uniqueResult();
           session.close();
@@ -77,9 +81,9 @@ public Uczniowie SelectById(int id){
 
     
     
-     public void usunUcznia(int id){
+     public void usunUcznia(int id_ucznia){
         session = HibernateUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("from Uczniowie where id=" + id);
+        Query query = session.createQuery("from Uczniowie where id_ucznia=" + id_ucznia);
         Uczniowie ucz = (Uczniowie) query.uniqueResult();
         Transaction t = session.beginTransaction();
         session.delete(ucz);
@@ -88,6 +92,33 @@ public Uczniowie SelectById(int id){
         
         
     }
+     public void dodajUczniaa(int idUcznia, String imie, String nazwisko, String PESEL, String nr_legitymacji, Date data_urodzenia, String miasto, String ulica, String kod_pocztowy, String nr_telefonu_do_rodzica, String haslo){
+          Session session = HibernateUtil.getSessionFactory().openSession();
+          Transaction transaction = session.beginTransaction();
+          session.doWork(new Work() {
+
+              @Override
+              public void execute(Connection cnctn) throws SQLException {
+                  CallableStatement cs = cnctn.prepareCall("{call dodaj_ucznia(?,?,?,?,?,?,?,?,?,?,?)}");
+                  cs.setInt(1,idUcznia);
+                  cs.setString(2, imie);
+                  cs.setString(3, nazwisko);
+                  cs.setString(4, PESEL);
+                  cs.setString(5, nr_legitymacji);
+                  cs.setDate(6, (java.sql.Date) data_urodzenia);
+                  cs.setString(7, miasto);
+                  cs.setString(8, ulica);
+                  cs.setString(9, kod_pocztowy);
+                  cs.setString(10, nr_telefonu_do_rodzica);
+                  cs.setString(11, haslo);
+                  cs.execute();
+       
+          
+      } 
+          });
+           transaction.commit();
+           session.close();
+     }
 }
 
 

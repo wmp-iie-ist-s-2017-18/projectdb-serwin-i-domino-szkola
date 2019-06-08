@@ -148,6 +148,10 @@ public void OcenyTableSelectAll() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        WYLOGUJ_N = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -155,14 +159,62 @@ public void OcenyTableSelectAll() {
         jScrollPane1 = new javax.swing.JScrollPane();
         TableOceny = new javax.swing.JTable();
         wylogujOc = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        WYLOGUJ_N = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TabelaUwagiUcz = new javax.swing.JTable();
         wylogujU = new javax.swing.JButton();
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Data nieobecności", "Przedmiot"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        WYLOGUJ_N.setText("WYLOGUJ");
+        WYLOGUJ_N.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WYLOGUJ_NActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(WYLOGUJ_N))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(WYLOGUJ_N)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -234,60 +286,6 @@ public void OcenyTableSelectAll() {
 
         jTabbedPane1.addTab("Oceny", jPanel1);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Data nieobecności", "Przedmiot"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable3);
-
-        WYLOGUJ_N.setText("WYLOGUJ");
-        WYLOGUJ_N.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                WYLOGUJ_NActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(WYLOGUJ_N))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(WYLOGUJ_N)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Nieobecności", jPanel3);
-
         TabelaUwagiUcz.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -346,13 +344,13 @@ public void OcenyTableSelectAll() {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -360,13 +358,13 @@ public void OcenyTableSelectAll() {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void wylogujOcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujOcActionPerformed
-        if (evt.getSource().equals(wylogujOc)) {
+    private void wylogujUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujUActionPerformed
+        if (evt.getSource().equals(wylogujU)) {
             this.setVisible(false);
             Logowanie loginIn = new Logowanie();
             loginIn.setVisible(true);
         }
-    }//GEN-LAST:event_wylogujOcActionPerformed
+    }//GEN-LAST:event_wylogujUActionPerformed
 
     private void WYLOGUJ_NActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WYLOGUJ_NActionPerformed
         if (evt.getSource().equals(WYLOGUJ_N)) {
@@ -376,13 +374,13 @@ public void OcenyTableSelectAll() {
         }
     }//GEN-LAST:event_WYLOGUJ_NActionPerformed
 
-    private void wylogujUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujUActionPerformed
-        if (evt.getSource().equals(wylogujU)) {
+    private void wylogujOcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujOcActionPerformed
+        if (evt.getSource().equals(wylogujOc)) {
             this.setVisible(false);
             Logowanie loginIn = new Logowanie();
             loginIn.setVisible(true);
         }
-    }//GEN-LAST:event_wylogujUActionPerformed
+    }//GEN-LAST:event_wylogujOcActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
