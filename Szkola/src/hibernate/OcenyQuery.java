@@ -49,6 +49,20 @@ public class OcenyQuery {
 
     }
 
+    public List<Oceny> OcenyUcznia(int id){
+        session = HibernateUtil.getSessionFactory().openSession();
+        criteria = session.createCriteria(Oceny.class);
+        List <Oceny> ocenki = criteria.list();
+        session.close();
+        int i = 0;
+        for(Oceny o: ocenki){
+            if(o.getUczniowie().getIdUcznia()!= id ){
+                ocenki.remove(i);
+            }
+            i++;
+        }
+        return ocenki;
+    }
     public Oceny selectById(int id_ucznia, int id_przedmiotu) {
         Oceny o = null;
         session = HibernateUtil.getSessionFactory().openSession();

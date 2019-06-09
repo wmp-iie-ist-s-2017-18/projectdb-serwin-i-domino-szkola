@@ -53,6 +53,21 @@ public class UwagiQuery {
          session.close();
          
      }
+     
+     public List <Uwagi> UwagiUcznia (int id){
+         session = HibernateUtil.getSessionFactory().openSession();
+        criteria = session.createCriteria(Uwagi.class);
+        List <Uwagi> uwaga = criteria.list();
+        session.close();
+        int i = 0;
+        for(Uwagi uw: uwaga){
+            if(uw.getUczniowie().getIdUcznia()!= id ){
+                uwaga.remove(i);
+            }
+            i++;
+        }
+        return uwaga;
+     }
 
  
      

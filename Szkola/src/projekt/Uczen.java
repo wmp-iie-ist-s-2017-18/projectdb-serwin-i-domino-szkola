@@ -45,23 +45,28 @@ public class Uczen extends javax.swing.JFrame {
     private List<Przedmioty> przedmiot;
     private List<Obecnosc> obecnosc;
     private ObecnoscQuery queryOb;
+    private UczniowieQuery uczniowieQ = new UczniowieQuery();
+    private int id;
 
-    public Uczen() {
+    public Uczen(int id) {
+        this.id = id;
+        Uczniowie u;
+        u = uczniowieQ.SelectById(id);
         initComponents();
         UwagiTableSelectAll();
         PrzedmiotyComboBox();
         OcenyTableSelectAll();
     }
-public void OcenyTableSelectAll() {
+
+    public void OcenyTableSelectAll() {
         queryOc = new OcenyQuery();
-        query = new NauczycieleQuery();
-        Object[] kolumna = {"Id oceny", " Data", "Ocena", "Opis", "Wystawił:"};
+        Object[] kolumna = {"Id oceny", " Data", "Ocena", "Opis"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(kolumna);
 
         try {
-            nauczy = query.nauczycieleSelectAll();
-            ocenki = queryOc.ocenySelectAll();
+
+            ocenki = queryOc.OcenyUcznia(id);
             Object[] row = new Object[4];
 
             for (Oceny o : ocenki) {
@@ -73,11 +78,6 @@ public void OcenyTableSelectAll() {
                 model.addRow(row);
             }
 
-            for (Nauczyciele n : nauczy) {
-                row[4] = n.getNazwisko() + " " + n.getImie();
-
-                model.addRow(row);
-            }
         } catch (Exception e) {
             System.out.println("Bład połączenia z bazą!");
 
@@ -110,13 +110,12 @@ public void OcenyTableSelectAll() {
         queryUw = new UwagiQuery();
         query = new NauczycieleQuery();
 
-        Object[] kolumny = {"Data wystawienia", "Treści uwagi", "Wystawił"};
+        Object[] kolumny = {"Data wystawienia", "Treści uwagi"};
         DefaultTableModel modelUW = new DefaultTableModel();
         modelUW.setColumnIdentifiers(kolumny);
 
         try {
-            nauczy = query.nauczycieleSelectAll();
-            uwaga = queryUw.uwagiSelectAll();
+            uwaga = queryUw.UwagiUcznia(id);
             Object[] row = new Object[2];
 
             for (Uwagi uw : uwaga) {
@@ -126,11 +125,6 @@ public void OcenyTableSelectAll() {
                 modelUW.addRow(row);
             }
 
-            for (Nauczyciele n : nauczy) {
-                row[2] = n.getNazwisko() + " " + n.getImie();
-
-                modelUW.addRow(row);
-            }
         } catch (Exception e) {
             System.out.println("Bład połączenia z bazą!");
 

@@ -18,19 +18,20 @@ public class Logowanie extends javax.swing.JFrame {
     private UczniowieQuery queryUczen;
     private NauczycieleQuery queryNauczyciel;
     public int id_nauczyciela;
-    
-    public int getId(){
+    public int id_ucznia;
+
+    public int getId() {
         return id_nauczyciela;
     }
-    
-    public Logowanie(int i){
-        
+
+    public Logowanie(int i) {
+
     }
-    
+
     public Logowanie() {
         setTitle("Logowanie");
         initComponents();
-        
+
     }
 
     /**
@@ -161,57 +162,56 @@ public class Logowanie extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void wybNauczycielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wybNauczycielActionPerformed
-        
+
     }//GEN-LAST:event_wybNauczycielActionPerformed
 
     private void UczenRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UczenRBActionPerformed
-       if(evt.getSource().equals(UczenRB)){
-           NauczycielRB.setSelected(false);
-       }
+        if (evt.getSource().equals(UczenRB)) {
+            NauczycielRB.setSelected(false);
+        }
     }//GEN-LAST:event_UczenRBActionPerformed
 
     private void ZalogujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZalogujActionPerformed
-if(evt.getSource().equals(Zaloguj))  {
-    alert.setText("");
-    String id = ID.getText();
-    char[] passw = haslo.getPassword();
-    String password = new String(passw);
-    queryNauczyciel = new NauczycieleQuery();
-    queryUczen = new UczniowieQuery();
-    
-    if(!(id.equals("")) && !(password.equals("")) && (NauczycielRB.isSelected() || UczenRB.isSelected() ) ){
-        if(UczenRB.isSelected()){
-            boolean test  = queryUczen.selecyByIDandPassword(id, password);
-            
-            if(test){
-                Uczniowie u = queryUczen.selectByIDandPassword(id, password);
-                new Uczen().setVisible(true);
-                this.setVisible(false);
-            }else{
-                alert.setText("Zły id lub hasło");
-            }
-        }
-       if(NauczycielRB.isSelected()){
-           new Nauczyciel(Integer.valueOf(id)).setVisible(true);
-           id_nauczyciela = Integer.valueOf(id);
-           this.setVisible(false);
-       }
-       else{
-           alert.setText("Zły id lub hasło");
-       }
-    }else{
-        alert.setText("Błąd!");
-    }
+        if (evt.getSource().equals(Zaloguj)) {
+            alert.setText("");
+            String id = ID.getText();
+            char[] passw = haslo.getPassword();
+            String password = new String(passw);
+            queryNauczyciel = new NauczycieleQuery();
+            queryUczen = new UczniowieQuery();
 
-}     
+            if (!(id.equals("")) && !(password.equals("")) && (NauczycielRB.isSelected() || UczenRB.isSelected())) {
+                if (UczenRB.isSelected()) {
+                    boolean test = queryUczen.selecyByIDandPassword(id, password);
+
+                    if (test) {
+                        Uczniowie u = queryUczen.selectByIDandPassword(id, password);
+                        new Uczen(Integer.valueOf(id)).setVisible(test);
+                        id_ucznia = Integer.valueOf(id);
+                        this.setVisible(false);
+                    } else {
+                        alert.setText("Zły id lub hasło");
+                    }
+                }
+                if (NauczycielRB.isSelected()) {
+                    new Nauczyciel(Integer.valueOf(id)).setVisible(true);
+                    id_nauczyciela = Integer.valueOf(id);
+                    this.setVisible(false);
+                } else {
+                    alert.setText("Zły id lub hasło");
+                }
+            } else {
+                alert.setText("Błąd!");
+            }
+
+        }
     }//GEN-LAST:event_ZalogujActionPerformed
 
     private void NauczycielRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NauczycielRBActionPerformed
-       if(evt.getSource().equals(NauczycielRB)){
-           UczenRB.setSelected(false);
-       }
+        if (evt.getSource().equals(NauczycielRB)) {
+            UczenRB.setSelected(false);
+        }
     }//GEN-LAST:event_NauczycielRBActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
