@@ -470,9 +470,10 @@ public class Nauczyciel extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         idPrzedmiot = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nazwaPrzedmiotu = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         Dodaj_Przedmiot = new javax.swing.JButton();
+        wylogujPrzedmioty = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1451,6 +1452,18 @@ public class Nauczyciel extends javax.swing.JFrame {
         jLabel24.setText("Nazwa przedmiotu:");
 
         Dodaj_Przedmiot.setText("Dodaj przedmiot");
+        Dodaj_Przedmiot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Dodaj_PrzedmiotActionPerformed(evt);
+            }
+        });
+
+        wylogujPrzedmioty.setText("Wyloguj");
+        wylogujPrzedmioty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wylogujPrzedmiotyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1461,21 +1474,23 @@ public class Nauczyciel extends javax.swing.JFrame {
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idPrzedmiot, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(62, 62, 62))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(nazwaPrzedmiotu, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(idPrzedmiot, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Dodaj_Przedmiot))
                         .addGap(112, 112, 112))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(199, 199, 199)
-                        .addComponent(Dodaj_Przedmiot)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(wylogujPrzedmioty, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1483,22 +1498,24 @@ public class Nauczyciel extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator3)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(wylogujPrzedmioty)
+                                .addGap(34, 34, 34)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(idPrzedmiot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14))
+                                .addGap(36, 36, 36)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nazwaPrzedmiotu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel24))
+                                .addGap(34, 34, 34)
+                                .addComponent(Dodaj_Przedmiot)))
                         .addGap(0, 104, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idPrzedmiot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24))
-                .addGap(37, 37, 37)
-                .addComponent(Dodaj_Przedmiot)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Przedmioty", jPanel3);
@@ -1762,9 +1779,12 @@ public class Nauczyciel extends javax.swing.JFrame {
     }//GEN-LAST:event_dodajUwageActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      wyborUczniaOc.getSelectedItem();
-      
-      
+ int id_przedmioty= Integer.valueOf((String)wybierzPrzedmiot.getSelectedItem());
+        int id_ucznia= Integer.valueOf((String)wyborUczniaOc.getSelectedItem());
+        
+        List OcenySelectAllOnID = queryOc.OcenySelectAllOnID(id_ucznia, id_przedmioty);
+
+      OcenyTableSelectAll();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void wybierzPrzedmiotOcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wybierzPrzedmiotOcActionPerformed
@@ -1774,6 +1794,36 @@ public class Nauczyciel extends javax.swing.JFrame {
     private void wyborUczniaOcFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyborUczniaOcFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_wyborUczniaOcFActionPerformed
+
+    private void Dodaj_PrzedmiotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Dodaj_PrzedmiotActionPerformed
+        
+        if (evt.getSource().equals(Dodaj_Przedmiot)) {
+
+            int id_przedmiotu;
+            String nazwa;
+            
+            id_przedmiotu = Integer.parseInt(idPrzedmiot.getText());
+            nazwa = nazwaPrzedmiotu.getText();
+            
+                 Przedmioty p = new Przedmioty(id_przedmiotu, nazwa);
+                 queryP = new PrzedmiotyQuery();
+            try {
+                queryP.PrzedmiotyAdd(p);
+               
+            } catch (Exception e) {
+                ;
+            }
+           PrzedmiotyTableAll();
+        }
+    }//GEN-LAST:event_Dodaj_PrzedmiotActionPerformed
+
+    private void wylogujPrzedmiotyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujPrzedmiotyActionPerformed
+        if (evt.getSource().equals(wylogujPrzedmioty)) {
+            this.setVisible(false);
+            Logowanie loginIn = new Logowanie();
+            loginIn.setVisible(true);
+        }
+    }//GEN-LAST:event_wylogujPrzedmiotyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1864,7 +1914,6 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField kodPocztUcznia;
     private javax.swing.JLabel kodlabel;
     private javax.swing.JTextField miastoUcznia;
@@ -1872,6 +1921,7 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JPanel nauczyciele;
     private javax.swing.JTextField naziwskoNauczyciela;
     private javax.swing.JTextField naziwskoUcznia;
+    private javax.swing.JTextField nazwaPrzedmiotu;
     private javax.swing.JTextField nrLegitymacji;
     private javax.swing.JTextField nrTel;
     private javax.swing.JTextField nrTelRodzica;
@@ -1906,6 +1956,7 @@ public class Nauczyciel extends javax.swing.JFrame {
     private javax.swing.JButton wylogujNauc;
     private javax.swing.JButton wylogujOb;
     private javax.swing.JButton wylogujOc;
+    private javax.swing.JButton wylogujPrzedmioty;
     private javax.swing.JButton wylogujUcz;
     private javax.swing.JButton wylogujUw;
     private javax.swing.JButton wyswietlNieobec;

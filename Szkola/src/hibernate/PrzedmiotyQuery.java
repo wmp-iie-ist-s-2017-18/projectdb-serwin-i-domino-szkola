@@ -9,6 +9,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -39,4 +40,13 @@ Session session = null;
           session.close();
           return p;
       }
+       
+         public void PrzedmiotyAdd(Przedmioty p){
+        session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+        session.save(p);
+        t.commit();
+        session.close();
+    }
+      
 }

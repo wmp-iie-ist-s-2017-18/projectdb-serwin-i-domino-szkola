@@ -29,7 +29,7 @@ Session session = null;
     public boolean selecyByIDandPassword(String id, String password) {
         Uczniowie ucz = null;
         session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from Uczniowie where id = '" + id + "' and haslo = '" + password + "'";
+        String hql = "from Uczniowie where id_ucznia = '" + id + "' and haslo = '" + password + "'";
         queryUcz = session.createQuery(hql);
         ucz = (Uczniowie) queryUcz.uniqueResult();
         session.close();
@@ -42,7 +42,7 @@ Session session = null;
     public Uczniowie selectByIDandPassword(String id, String password){
         Uczniowie ucz = null;
         session = HibernateUtil.getSessionFactory().openSession();
-         String hql = "from Uczniowie where id = '" + id + "' and haslo = '" + password + "'";
+         String hql = "from Uczniowie where id_ucznia = '" + id + "' and haslo = '" + password + "'";
         queryUcz = session.createQuery(hql);
         ucz = (Uczniowie) queryUcz.uniqueResult();
         session.close();

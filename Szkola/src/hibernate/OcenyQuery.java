@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -27,6 +28,7 @@ public class OcenyQuery {
     Session session = null;
     Query queryOc = null;
     Criteria criteria = null;
+     private List<Oceny> ocenki;
 
     public List<Oceny> ocenySelectAll() {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -50,26 +52,27 @@ public class OcenyQuery {
     public Oceny selectById(int id_ucznia, int id_przedmiotu) {
         Oceny o = null;
         session = HibernateUtil.getSessionFactory().openSession();
-       // String hql = "from Oceny where id_ucznia = " +id_ucznia " and id_przedmioty = " +id_przedmiotu;
-        //queryOc = session.createQuery(hql);
+       String hql = "from Oceny where id_ucznia = " +id_ucznia+ " and id_przedmioty = " +id_przedmiotu;
+        queryOc = session.createQuery(hql);
         o = (Oceny) queryOc.uniqueResult();
         session.close();
         return o;
     }
 
-    public ArrayList<Oceny> OcenySelectAllOnID(int idUcznia) {
+    public List OcenySelectAllOnID(int idUcznia, int id_przedmiotu) {
         session = HibernateUtil.getSessionFactory().openSession();
         criteria = session.createCriteria(Oceny.class);
-        ArrayList<Oceny> oceny = (ArrayList<Oceny>) criteria.list();
+         ocenki =  criteria.list();
         session.close();
         int i = 0;
-        for (Oceny o : oceny) {
-            if (o.getUczniowie().getIdUcznia() != idUcznia) {
-                oceny.remove(i);
+        
+        for (Oceny o : ocenki) {
+            if (o.getUczniowie().getIdUcznia() != idUcznia && o.getPrzedmioty().getIdPrzedmioty() != id_przedmiotu) {
+                ocenki.remove(o);
             }
             i++;
         }
-        return oceny;
+        return ocenki;
     }
 
     public double srednia(int id_ucznia, int id_przedmioty) {
