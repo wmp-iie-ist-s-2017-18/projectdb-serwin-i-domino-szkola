@@ -62,15 +62,13 @@ public class Nauczyciel extends javax.swing.JFrame {
         initComponents();
         NauczTableSelectAll();
         UcznTableSelectAll();
-        OcenyTableSelectAll();
         UwagiTableSelectAll();
         UczniowieCombobox();
         PrzedmiotyComboBox();
         Typ_UwagiCombobox();
         PrzedmiotyTableAll();
-        
+
     }
-  
 
     public void wyczyscformUcz() {
         idUdodaj.setText(null);
@@ -85,10 +83,21 @@ public class Nauczyciel extends javax.swing.JFrame {
         hasloUcznia.setText(null);
     }
 
-    public void clearFieldsUsunOc() {
-        usunIdOc.setText(null);
-    }
-
+  public void wyczyscformOceny(){
+      idOcDodajtxt.setText(null);
+      wybierzPrzedmiotOc.setSelectedItem(null);
+      wyborUczniaOcF.setSelectedItem(null);
+      wartoscOcentxt.setText(null);
+      opisOctxt.setText(null);
+  }
+  
+  public void wyczyscformUwagi(){
+      id_uwagi.setText(null);
+      wybierzUczniaUwf.setSelectedItem(null);
+      typUwagiCombo.setSelectedItem(null);
+      trescUwagi.setText(null);
+  }
+    
     public void UczniowieCombobox() {
         Session session = null;
         try {
@@ -105,11 +114,11 @@ public class Nauczyciel extends javax.swing.JFrame {
 
             for (Uczniowie u : ucz) {
 
-                wyborUczniaOb.addItem(Integer.toString(u.getIdUcznia()));
-                uczenComboBox.addItem(Integer.toString(u.getIdUcznia()));
-                wyborUczniaOc.addItem(Integer.toString(u.getIdUcznia()));
-                wyborUczniaOcF.addItem(Integer.toString(u.getIdUcznia()));
-                wybierzUczniaUwf.addItem(Integer.toString(u.getIdUcznia()));
+                wyborUczniaOb.addItem(u.getIdUcznia() +"");
+                uczenComboBox.addItem(u.getIdUcznia() +"");
+                wyborUczniaOc.addItem(u.getIdUcznia() +"");
+                wyborUczniaOcF.addItem(u.getIdUcznia() +"");
+                wybierzUczniaUwf.addItem(u.getIdUcznia() +"");
             }
 
             session.close();
@@ -118,8 +127,7 @@ public class Nauczyciel extends javax.swing.JFrame {
         }
     }
 
-
-     public void PrzedmiotyComboBox() {
+    public void PrzedmiotyComboBox() {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -131,9 +139,8 @@ public class Nauczyciel extends javax.swing.JFrame {
             wybierzPrzedmiotOc.removeAllItems();
             for (Przedmioty p : przedmiot) {
 
-              
-              wybierzPrzedmiot.addItem(Integer.toString(p.getIdPrzedmioty()));
-              wybierzPrzedmiotOc.addItem(Integer.toString(p.getIdPrzedmioty()));
+                wybierzPrzedmiot.addItem(p.getIdPrzedmioty() +"");
+                wybierzPrzedmiotOc.addItem(p.getIdPrzedmioty() +"");
 
             }
 
@@ -142,42 +149,45 @@ public class Nauczyciel extends javax.swing.JFrame {
             System.out.println("Bład połączenia z bazą!");
         }
     }
-     
-     public void Typ_UwagiCombobox(){
-         Session session = null;
-         
-         try{
-             session = HibernateUtil.getSessionFactory().openSession();
-                 Criteria criteria = session.createCriteria(Uwagi.class);
-           uwaga = criteria.list();
-           typUwagiCombo.removeAllItems();
-           
-           for(Uwagi u: uwaga){
-               typUwagiCombo.addItem(u.getTypUwagi());
-           }
-           session.close();
-             
-         }catch(Exception e) {
+
+    public void Typ_UwagiCombobox() {
+        Session session = null;
+
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(Uwagi.class);
+            uwaga = criteria.list();
+            typUwagiCombo.removeAllItems();
+
+            for (Uwagi u : uwaga) {
+                typUwagiCombo.addItem(u.getTypUwagi());
+            }
+            session.close();
+
+        } catch (Exception e) {
             System.out.println("Bład połączenia z bazą!");
-     }
-     }
+        }
+    }
 
     public void UwagiTableSelectAll() {
         queryUw = new UwagiQuery();
         queryU = new UczniowieQuery();
-        Object[] kolumny = {"Id uwagi", "Data wpisania", "Typ uwagi", "Opis"};
+        Object[] kolumny = {"Id uwagi","Id ucznia", "Data wpisania", "Typ uwagi", "Opis"};
         DefaultTableModel modelUW = new DefaultTableModel();
         modelUW.setColumnIdentifiers(kolumny);
 
         try {
-            uwaga = (List<Uwagi>) queryUw.uwagiSelectAll();
-            Object[] row = new Object[7];
+            String str = (String)wyborUczniaOc.getSelectedItem();
+        int id_ucznia = Integer.parseInt(str);
+            uwaga = queryUw.UwagiUcznia(id_ucznia);
+            Object[] row = new Object[5];
 
             for (Uwagi uw : uwaga) {
                 row[0] = uw.getIdUwagi();
-                row[1] = uw.getDataWpisania();
-                row[2] = uw.getTypUwagi();
-                row[3] = uw.getOpis();
+                row[1] = uw.getUczniowie().getIdUcznia();
+                row[2] = uw.getDataWpisania();
+                row[3] = uw.getTypUwagi();
+                row[4] = uw.getOpis();
 
                 modelUW.addRow(row);
             }
@@ -193,24 +203,24 @@ public class Nauczyciel extends javax.swing.JFrame {
         TableUwagi.setModel(modelUW);
 
     }
-    
-    public void PrzedmiotyTableAll(){
+
+    public void PrzedmiotyTableAll() {
         queryP = new PrzedmiotyQuery();
         Object[] kolumny = {"Id przedmiotu", "Nazwa przedmiotu"};
         DefaultTableModel modelP = new DefaultTableModel();
         modelP.setColumnIdentifiers(kolumny);
-        
-        try{
+
+        try {
             przedmiot = queryP.PrzedmiotySelectAll();
-            Object [] row = new Object [2];
-            
-            for(Przedmioty p: przedmiot){
+            Object[] row = new Object[2];
+
+            for (Przedmioty p : przedmiot) {
                 row[0] = p.getIdPrzedmioty();
                 row[1] = p.getNazwaPrzedmiotu();
-                
+
                 modelP.addRow(row);
-             } 
-        }catch (Exception e) {
+            }
+        } catch (Exception e) {
             System.out.println("Bład połączenia z bazą!");
         }
         PrzedmiotyTable.setModel(modelP);
@@ -255,9 +265,17 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         try {
 
-            ocenki = queryOc.ocenySelectAll();
+        String str = (String)wyborUczniaOc.getSelectedItem();
+        int id_ucznia = Integer.parseInt(str);
+            System.out.println(id_ucznia);
+        
+        String str2 = (String) wybierzPrzedmiot.getSelectedItem();
+        int id_przedmioty = Integer.parseInt(str2);
+            System.out.println(id_przedmioty);
+            
+            ocenki =   queryOc.OcenySelectAllOnID(id_ucznia, id_przedmioty);
 
-            Object[] row = new Object[7];
+            Object[] row = new Object[5];
 
             for (Oceny o : ocenki) {
                 row[0] = o.getIdOceny();
@@ -265,16 +283,10 @@ public class Nauczyciel extends javax.swing.JFrame {
                 row[2] = o.getDataWpisania().toString();
                 row[3] = o.getWartosc();
                 row[4] = o.getOpis();
-   
 
-             
                 model.addRow(row);
             }
 
-            //for (Nauczyciele n : nauczy) {
-            //    row[4] = n.getNazwisko() + " " + n.getImie();
-            // model.addRow(row);
-            //  }
         } catch (Exception e) {
             System.out.println("Bład połączenia z bazą!");
 
@@ -853,7 +865,7 @@ public class Nauczyciel extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Wyświet");
+        jButton1.setText("Wyświetl");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -1652,9 +1664,9 @@ public class Nauczyciel extends javax.swing.JFrame {
             mail = email.getText();
             nr_telefonu = nrTel.getText();
             wynagrodzenie = stawka.getText();
-            char [] passy = hasloDodaj.getPassword();
+            char[] passy = hasloDodaj.getPassword();
             haslo = new String(passy);
-                 
+
             try {
                 query.dodajNauczyciela(idNaucz, imie, nazwisko, mail, nr_telefonu, wynagrodzenie, haslo);
                 wyczyscform();
@@ -1671,11 +1683,11 @@ public class Nauczyciel extends javax.swing.JFrame {
     }//GEN-LAST:event_wyborUczniaOcActionPerformed
 
     private void obliczSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obliczSActionPerformed
-        int id_przedmioty= Integer.valueOf((String)wybierzPrzedmiot.getSelectedItem());
-        int id_ucznia= Integer.valueOf((String)wyborUczniaOc.getSelectedItem());
-        
+        int id_przedmioty = Integer.valueOf((String) wybierzPrzedmiot.getSelectedItem());
+        int id_ucznia = Integer.valueOf((String) wyborUczniaOc.getSelectedItem());
+
         double srednia = queryOc.srednia(id_ucznia, id_przedmioty);
-      sredniaOcenUczniaLa.setText(Double.toString(srednia));
+        sredniaOcenUczniaLa.setText(Double.toString(srednia));
     }//GEN-LAST:event_obliczSActionPerformed
 
     private void wylogujOcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujOcActionPerformed
@@ -1707,8 +1719,8 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         if (evt.getSource().equals(dodajOcene)) {
             id_oceny = Integer.parseInt(idOcDodajtxt.getText());
-            id_przed = Integer.valueOf((String)wybierzPrzedmiotOc.getSelectedItem());
-            id_ucz = Integer.valueOf((String)wyborUczniaOcF.getSelectedItem());
+            id_przed = Integer.valueOf((String) wybierzPrzedmiotOc.getSelectedItem());
+            id_ucz = Integer.valueOf((String) wyborUczniaOcF.getSelectedItem());
             opis = opisOctxt.getText();
             wartoscOc = Integer.parseInt(wartoscOcentxt.getText());
             opis = opisOctxt.getText();
@@ -1726,6 +1738,7 @@ public class Nauczyciel extends javax.swing.JFrame {
 
             try {
                 queryOc.DodajOcene(id_oceny, data, opis, wartoscOc, id_przed, id_ucz, id_naucz);
+                wyczyscformOceny();
 
             } catch (Exception e) {
                 System.out.println(e.getLocalizedMessage());
@@ -1744,7 +1757,7 @@ public class Nauczyciel extends javax.swing.JFrame {
     }//GEN-LAST:event_wylogujObActionPerformed
 
     private void wyswietlUczniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyswietlUczniaActionPerformed
-
+ UwagiTableSelectAll();
     }//GEN-LAST:event_wyswietlUczniaActionPerformed
 
     private void uczenComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uczenComboBoxActionPerformed
@@ -1766,8 +1779,8 @@ public class Nauczyciel extends javax.swing.JFrame {
 
         if (evt.getSource().equals(dodajUwage)) {
             id_uwaga = Integer.parseInt(id_uwagi.getText());
-            id_ucz = Integer.valueOf((String)wyborUczniaOcF.getSelectedItem());
-            typ = (String)typUwagiCombo.getSelectedItem();
+            id_ucz = Integer.valueOf((String) wyborUczniaOcF.getSelectedItem());
+            typ = (String) typUwagiCombo.getSelectedItem();
             opis = trescUwagi.getText();
 
             Date datawpisania = null;
@@ -1791,12 +1804,8 @@ public class Nauczyciel extends javax.swing.JFrame {
     }//GEN-LAST:event_dodajUwageActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
- int id_przedmioty= Integer.valueOf((String)wybierzPrzedmiot.getSelectedItem());
-        int id_ucznia= Integer.valueOf((String)wyborUczniaOc.getSelectedItem());
-        
-        List OcenySelectAllOnID = queryOc.OcenySelectAllOnID(id_ucznia, id_przedmioty);
-
-      OcenyTableSelectAll();
+ 
+        OcenyTableSelectAll();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void wybierzPrzedmiotOcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wybierzPrzedmiotOcActionPerformed
@@ -1808,24 +1817,24 @@ public class Nauczyciel extends javax.swing.JFrame {
     }//GEN-LAST:event_wyborUczniaOcFActionPerformed
 
     private void Dodaj_PrzedmiotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Dodaj_PrzedmiotActionPerformed
-        
+
         if (evt.getSource().equals(Dodaj_Przedmiot)) {
 
             int id_przedmiotu;
             String nazwa;
-            
+
             id_przedmiotu = Integer.parseInt(idPrzedmiot.getText());
             nazwa = nazwaPrzedmiotu.getText();
-            
-                 Przedmioty p = new Przedmioty(id_przedmiotu, nazwa);
-                 queryP = new PrzedmiotyQuery();
+
+            Przedmioty p = new Przedmioty(id_przedmiotu, nazwa);
+            queryP = new PrzedmiotyQuery();
             try {
                 queryP.PrzedmiotyAdd(p);
-               
+
             } catch (Exception e) {
                 ;
             }
-           PrzedmiotyTableAll();
+            PrzedmiotyTableAll();
         }
     }//GEN-LAST:event_Dodaj_PrzedmiotActionPerformed
 
