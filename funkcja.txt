@@ -1,0 +1,5 @@
+mysql
+
+CREATE OR REPLACE FUNCTION Srednia(uczen INT, przedmiot INT) RETURNS double
+	RETURN (SELECT ROUND(avg(wartosc),2) FROM szkola.oceny 
+			WHERE id_ucznia = uczen and id_przedmioty = przedmiot);
