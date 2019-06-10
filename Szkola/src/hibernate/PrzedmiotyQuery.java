@@ -48,5 +48,15 @@ Session session = null;
         t.commit();
         session.close();
     }
+          public void usunPrzedmiot (int id_przedmioty){
+        session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("from Przedmioty where id_przedmioty=" + id_przedmioty);
+        Przedmioty p = (Przedmioty) query.uniqueResult();
+        Transaction t = session.beginTransaction();
+        session.delete(p);
+        t.commit();
+        session.close();
+        
       
+}
 }

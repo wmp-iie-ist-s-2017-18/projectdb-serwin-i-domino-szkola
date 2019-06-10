@@ -69,7 +69,14 @@ public class UwagiQuery {
         return uwaga;
      }
 
- 
+ public void usunUwage (int id_uwagi){
+        session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("from Uwagi where id_uwagi=" + id_uwagi);
+        Uwagi u = (Uwagi) query.uniqueResult();
+        Transaction t = session.beginTransaction();
+        session.delete(u);
+        t.commit();
+        session.close();
      
 }
-
+}
